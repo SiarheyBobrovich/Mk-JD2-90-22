@@ -14,7 +14,7 @@ class ApacheCommonsLang3CheckerTest {
     @ParameterizedTest(name = "{index} - Проверяемый текст = {0}")
     @DisplayName("Проверка текста на присутствие маленьких символов")
     @MethodSource("nameProvider")
-    public void isAllLowerCase(String text, boolean result) {
+    void isAllLowerCase(String text, boolean result) {
         Assertions.assertEquals(result, ApacheCommonsLang3Checker.isAllLowerCase(text));
     }
 
@@ -23,7 +23,7 @@ class ApacheCommonsLang3CheckerTest {
                 Arguments.arguments("Ivan", false),
                 Arguments.arguments("Anton", false),
                 Arguments.arguments("AllPeople", false),
-                Arguments.arguments("irina", false)
+                Arguments.arguments("irina", true)
         );
     }
 }
