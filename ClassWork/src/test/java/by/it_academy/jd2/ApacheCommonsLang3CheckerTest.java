@@ -1,8 +1,8 @@
 package by.it_academy.jd2;
 
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -16,6 +16,11 @@ class ApacheCommonsLang3CheckerTest {
     @MethodSource("nameProvider")
     void isAllLowerCase(String text, boolean result) {
         Assertions.assertEquals(result, ApacheCommonsLang3Checker.isAllLowerCase(text));
+    }
+
+    @Test
+    void isAllLowerCase1() {
+        ApacheCommonsLang3Checker checker = new ApacheCommonsLang3Checker();
     }
 
     public static Stream<Arguments> nameProvider() {
