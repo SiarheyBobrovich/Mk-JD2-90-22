@@ -1,1 +1,0 @@
-set CATALINA_OPTS= -Dfile.encoding=utf-8 -Xms256m -Xmx1g -XX:MaxMetaspaceSize=256m -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1098 -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false
