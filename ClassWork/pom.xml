@@ -100,6 +100,18 @@
 
     <build>
         <plugins>
+
+            <!--  Конфигурация для автодеплоя на сервер(Локальный) -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.1</version>
+                <configuration>
+                    <outputDirectory>C:\Mk-JD2-90-22\ClassWork\apache-tomcat-8.5.77\webapps</outputDirectory>
+                </configuration>
+            </plugin>
+<!--            ============================= -->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -149,6 +161,9 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
+                            <excludes>
+                                <exclude>**/*Servlet.*</exclude>
+                            </excludes>
                             <rules>
                                 <rule>
                                     <element>PACKAGE</element>
