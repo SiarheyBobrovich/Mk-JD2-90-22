@@ -15,6 +15,8 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourseEncoding>UTF-8</project.build.sourseEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>
@@ -107,6 +109,12 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.1</version>
                 <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>${basedir}\src\main\webapp\</directory>
+                        </resource>
+                    </webResources>
+                    <webXml>${basedir}\src\main\webapp\WEB-INF\web.xml</webXml>
                     <outputDirectory>C:\Mk-JD2-90-22\ClassWork\apache-tomcat-8.5.77\webapps</outputDirectory>
                 </configuration>
             </plugin>
