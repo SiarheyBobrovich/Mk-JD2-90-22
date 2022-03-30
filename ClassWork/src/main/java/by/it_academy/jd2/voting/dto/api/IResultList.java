@@ -3,7 +3,11 @@ package by.it_academy.jd2.voting.dto.api;
 import by.it_academy.jd2.voting.dto.enums.Genres;
 import by.it_academy.jd2.voting.dto.enums.Singers;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public interface IResultList {
 
@@ -13,23 +17,13 @@ public interface IResultList {
      * @param genres - Array from Genres
      * @param text - some text about voter
      */
-    void addVote(Singers singer, List<Genres> genres, String text);
+    void addVote(Singers singer, Set<Genres> genres, String text);
 
-    /**
-     * Calculate best singers
-     * @return sorted singers
-     */
-    Singers[] getBestSingers();
 
-    /**
-     * Calculate lovely genres
-     * @return - sorted genres[]
-     */
-    Genres[] getLovelyGenres();
 
-    /**
-     * Sort all text by Date
-     * @return sorted text[]
-     */
-    String[] getSortedText();
+    List<Singers> getSortedSingers(Comparator<Map.Entry<Singers, Integer>> comparator);
+
+    List<Genres> getSortedGenres(Comparator<Map.Entry<Genres, Integer>> comparator);
+
+    List<String> getSortedText(Comparator<Map.Entry<LocalDateTime, String>> comparator);
 }

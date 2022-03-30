@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class PrintNameHeader extends HttpServlet {
 
-    private String NAME_PARAMETER_HEADER = "ARRAY_NAME_PARAM";
+    private final String NAME_PARAMETER_HEADER = "ARRAY_NAME_PARAM";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -16,12 +16,14 @@ public enum Genres {
     HIP_HOP("Хип-хоп"),
     ELECTRONIC("Электронная");
 
-    Genres(String name) {
+    private final String name;
 
+    Genres(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return super.toString() + " музыка";
+        return this.name;
     }
 }

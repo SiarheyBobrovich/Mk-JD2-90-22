@@ -10,12 +10,14 @@ public enum Singers {
     SKILLET("Skillet"),
     LINKIN_PARK("Linkin Park");
 
-    Singers(String name) {
+    private final String name;
 
+    Singers(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return name;
     }
 }

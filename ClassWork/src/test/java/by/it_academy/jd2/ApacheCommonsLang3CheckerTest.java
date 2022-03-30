@@ -1,5 +1,6 @@
 package by.it_academy.jd2;
 
+import by.it_academy.jd2.dto.ApacheCommonsLang3Checker;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
