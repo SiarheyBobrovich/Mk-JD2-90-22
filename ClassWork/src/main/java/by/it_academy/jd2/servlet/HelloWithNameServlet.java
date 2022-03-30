@@ -1,13 +1,11 @@
 package by.it_academy.jd2.servlet;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Enumeration;
 
 @WebServlet(name = "HelloWithNameServlet", urlPatterns = "/hello_with_name")
 public class HelloWithNameServlet extends HttpServlet {
