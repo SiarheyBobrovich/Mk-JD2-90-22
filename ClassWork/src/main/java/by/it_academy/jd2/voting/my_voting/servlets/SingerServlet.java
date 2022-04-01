@@ -1,6 +1,7 @@
-package by.it_academy.jd2.voting.servlets;
+package by.it_academy.jd2.voting.my_voting.servlets;
 
-import by.it_academy.jd2.voting.dto.enums.Singers;
+import by.it_academy.jd2.voting.my_voting.dto.enums.Singers;
+import by.it_academy.jd2.voting.my_voting.service.GenresService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,15 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "SingerServlet", urlPatterns = "/singers")
 public class SingerServlet extends HttpServlet {
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setCharacterEncoding("UTF-8");
+
+        String genre = req.getParameter("singer");
+
+        GenresService.getInstance().add(genre);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

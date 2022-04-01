@@ -1,8 +1,8 @@
-package by.it_academy.jd2.voting.servlets;
+package by.it_academy.jd2.voting.my_voting.servlets;
 
-import by.it_academy.jd2.voting.dto.ResultList;
-import by.it_academy.jd2.voting.dto.enums.Genres;
-import by.it_academy.jd2.voting.dto.enums.Singers;
+import by.it_academy.jd2.voting.my_voting.dto.ResultList;
+import by.it_academy.jd2.voting.my_voting.dto.enums.Genres;
+import by.it_academy.jd2.voting.my_voting.dto.enums.Singers;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -17,6 +17,10 @@
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourseEncoding>UTF-8</project.build.sourseEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <maven.tomcat.url>http://localhost:8080/manager/text</maven.tomcat.url>
+        <maven.tomcat.server>TomcatServer8</maven.tomcat.server>
+        <maven.tomcat.path>/${project.build.finalName}</maven.tomcat.path>
     </properties>
 
     <dependencies>
@@ -102,6 +106,11 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+            </plugin>
 
             <!--  Конфигурация для автодеплоя на сервер(Локальный) -->
             <plugin>
@@ -115,7 +124,6 @@
                         </resource>
                     </webResources>
                     <webXml>${basedir}\src\main\webapp\WEB-INF\web.xml</webXml>
-                    <outputDirectory>C:\Mk-JD2-90-22\ClassWork\apache-tomcat-8.5.77\webapps</outputDirectory>
                 </configuration>
             </plugin>
 <!--            ============================= -->
@@ -171,6 +179,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/*Servlet.*</exclude>
+                                <exclude>**/voting/*</exclude>
                             </excludes>
                             <rules>
                                 <rule>
@@ -179,7 +188,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.50</minimum>
+                                            <minimum>0.0</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

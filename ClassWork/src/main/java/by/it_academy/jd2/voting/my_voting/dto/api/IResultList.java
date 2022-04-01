@@ -1,7 +1,7 @@
-package by.it_academy.jd2.voting.dto.api;
+package by.it_academy.jd2.voting.my_voting.dto.api;
 
-import by.it_academy.jd2.voting.dto.enums.Genres;
-import by.it_academy.jd2.voting.dto.enums.Singers;
+import by.it_academy.jd2.voting.my_voting.dto.enums.Genres;
+import by.it_academy.jd2.voting.my_voting.dto.enums.Singers;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;

@@ -1,13 +1,11 @@
-package by.it_academy.jd2.voting.dto;
+package by.it_academy.jd2.voting.my_voting.dto;
 
-import by.it_academy.jd2.voting.dto.api.IResultList;
-import by.it_academy.jd2.voting.dto.enums.Genres;
-import by.it_academy.jd2.voting.dto.enums.Singers;
+import by.it_academy.jd2.voting.my_voting.dto.api.IResultList;
+import by.it_academy.jd2.voting.my_voting.dto.enums.Genres;
+import by.it_academy.jd2.voting.my_voting.dto.enums.Singers;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Stream;
 
 public class ResultList implements IResultList {
 

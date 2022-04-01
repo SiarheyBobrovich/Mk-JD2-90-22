@@ -1,8 +1,8 @@
-package by.it_academy.jd2.voting.servlets;
+package by.it_academy.jd2.voting.my_voting.servlets;
 
-import by.it_academy.jd2.voting.dto.ResultList;
-import by.it_academy.jd2.voting.dto.enums.Genres;
-import by.it_academy.jd2.voting.dto.enums.Singers;
+import by.it_academy.jd2.voting.my_voting.dto.ResultList;
+import by.it_academy.jd2.voting.my_voting.dto.enums.Genres;
+import by.it_academy.jd2.voting.my_voting.dto.enums.Singers;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Map;
