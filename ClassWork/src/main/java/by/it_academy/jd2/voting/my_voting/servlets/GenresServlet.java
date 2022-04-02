@@ -36,7 +36,7 @@ public class GenresServlet extends HttpServlet {
 
             List<String> genres = service.getList();
 
-            AtomicInteger index = new AtomicInteger();
+            AtomicInteger index = new AtomicInteger(1);
             genres.forEach(x -> writer.write(
                     "<p>"
                     + index.getAndIncrement()

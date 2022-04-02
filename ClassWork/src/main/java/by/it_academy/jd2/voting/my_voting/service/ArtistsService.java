@@ -2,7 +2,6 @@ package by.it_academy.jd2.voting.my_voting.service;
 
 import by.it_academy.jd2.voting.my_voting.service.api.ISingletonService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -27,7 +26,7 @@ public class ArtistsService implements ISingletonService {
 
         synchronized (ArtistsService.class) {
             if (artistsService == null) {
-                return new ArtistsService();
+                artistsService = new ArtistsService();
             }
         }
 
@@ -43,7 +42,7 @@ public class ArtistsService implements ISingletonService {
     }
 
     @Override
-    public boolean isExist(int index) {
+    public boolean isExist(int index) throws IllegalArgumentException{
         return index >= 0 && index < this.artists.size();
     }
 

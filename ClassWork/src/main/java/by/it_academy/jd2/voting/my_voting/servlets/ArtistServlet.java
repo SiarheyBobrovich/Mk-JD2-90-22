@@ -1,6 +1,6 @@
 package by.it_academy.jd2.voting.my_voting.servlets;
 
-import by.it_academy.jd2.voting.my_voting.dto.enums.Singers;
+import by.it_academy.jd2.voting.my_voting.service.ArtistsService;
 import by.it_academy.jd2.voting.my_voting.service.GenresService;
 
 import javax.servlet.ServletException;
@@ -10,17 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
-@WebServlet(name = "SingerServlet", urlPatterns = "/singers")
-public class SingerServlet extends HttpServlet {
+@WebServlet(name = "ArtistServlet", urlPatterns = "/artists")
+public class ArtistServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
-        String genre = req.getParameter("singer");
+        String artist = req.getParameter("singer");
 
-        GenresService.getInstance().add(genre);
+        ArtistsService.getInstance().add(artist);
     }
 
     @Override
@@ -29,18 +31,19 @@ public class SingerServlet extends HttpServlet {
 
         try (PrintWriter writer = resp.getWriter()) {
             writer.write("<p>Выберите одного из четырёх вариантов исполнителя: </p>");
-            Singers[] singers = Singers.values();
+            List<String> artists = ArtistsService.getInstance().getList();
 
-            for (int i = 0; i < singers.length; i++) {
-                writer.write("<p>" + (i + 1) + ") " + singers[i] + "</p>");
-            }
+            AtomicInteger index = new AtomicInteger(1);
+            artists.forEach(x -> writer.write(
+                    "<p>"
+                            + index.getAndIncrement()
+                            + ") "
+                            + x
+                            + "</p></br>")
+            );
 
         }catch (IOException e) {
             log(e.getMessage());
         }
-
-
-
-
     }
 }

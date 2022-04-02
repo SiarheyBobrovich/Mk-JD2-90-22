@@ -14,10 +14,17 @@ public class GenresService implements ISingletonService {
 
     private GenresService() {
         genres = Stream.of(
-                "Артур Пирожков",
-                "Linkin park",
-                "Rihhana",
-                "Лариса Долина")
+                "Рок",
+                "Поп",
+                "Фанк",
+                "Электронная музыка",
+                "Рэгги",
+                "Блюз",
+                "Джаз",
+                "Метал",
+                "Хип-хоп",
+                "Рэп"
+                )
             .collect(Collectors.toList()
         );
     }
@@ -29,7 +36,7 @@ public class GenresService implements ISingletonService {
 
         synchronized (GenresService.class) {
             if (genresService == null) {
-                return genresService = new GenresService();
+                genresService = new GenresService();
             }
         }
 
