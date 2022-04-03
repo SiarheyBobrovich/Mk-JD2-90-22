@@ -3,6 +3,7 @@ package by.it_academy.jd2.voting.my_voting.dto;
 import by.it_academy.jd2.voting.my_voting.service.ArtistsService;
 import by.it_academy.jd2.voting.my_voting.service.GenresService;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 public class Vote {
@@ -10,12 +11,14 @@ public class Vote {
     private final int artist;
     private final int[] genres;
     private final String about;
+    private final LocalDateTime time;
 
     public Vote(int artist, int[] genres, String about) throws IllegalArgumentException {
         check(artist, genres);
         this.artist = artist;
         this.genres = genres;
         this.about = about;
+        this.time = LocalDateTime.now();
     }
 
     public int getArtist() {
@@ -28,6 +31,10 @@ public class Vote {
 
     public String getAbout() {
         return about;
+    }
+
+    public LocalDateTime getTime() {
+        return this.time;
     }
 
     private void check(int artist, int[] genres) throws IllegalArgumentException {

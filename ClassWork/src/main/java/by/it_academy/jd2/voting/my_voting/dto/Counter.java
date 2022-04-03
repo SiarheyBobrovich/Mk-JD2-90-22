@@ -15,5 +15,5 @@ public class Counter {
         this.textAbout = new TreeMap<>(LocalDateTime::compareTo);
     }
 
-    
+
 }
