@@ -1,6 +1,6 @@
-package by.it_academy.jd2.voting.my_voting.dto;
+package by.it_academy.jd2.voting.my_voting.core.dto;
 
-import by.it_academy.jd2.voting.my_voting.dto.api.IVoteContainer;
+import by.it_academy.jd2.voting.my_voting.core.dto.api.IVoteContainer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,10 @@ public class VoteContainer implements IVoteContainer {
         votes = new ArrayList<>();
     }
 
+    /**
+     * Singleton getter
+     * @return class reference
+     */
     public static VoteContainer getInstance() {
         if (voteContainer != null) {
             return voteContainer;

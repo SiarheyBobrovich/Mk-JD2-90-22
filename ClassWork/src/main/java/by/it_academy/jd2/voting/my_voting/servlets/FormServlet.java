@@ -1,6 +1,6 @@
 package by.it_academy.jd2.voting.my_voting.servlets;
 
-import by.it_academy.jd2.voting.my_voting.dto.VoteContainer;
+import by.it_academy.jd2.voting.my_voting.core.dto.VoteContainer;
 import by.it_academy.jd2.voting.my_voting.service.ArtistsService;
 import by.it_academy.jd2.voting.my_voting.service.GenresService;
 
