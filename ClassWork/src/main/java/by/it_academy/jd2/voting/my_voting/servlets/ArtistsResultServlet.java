@@ -17,10 +17,10 @@ import java.util.Map;
 @WebServlet(name = "ArtistsResultServlet", urlPatterns = "/artist/result")
 public class ArtistsResultServlet extends HttpServlet {
 
-    private final static IVoteCounter<String, Integer> COUNTER = new ArtistCounter(VoteContainer.getInstance());
+    private static final IVoteCounter<String, Integer> COUNTER = new ArtistCounter(VoteContainer.getInstance());
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         Map<String, Integer> sortedMap = COUNTER.getSortedMap(new Comparator<Map.Entry<String, Integer>>() {
 
             @Override
@@ -33,8 +33,14 @@ public class ArtistsResultServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        sortedMap.forEach((key, value) -> writer.write("<p>Артист: " + key + " набрал: " + value +
-                (value == 1 ? " голос" : value < 5 ? " голоса" : " голосов") + "</p></br>")
+        sortedMap.forEach((key, value) -> writer.write(
+                "<p>Артист: "
+                        + key
+                        + " набрал: "
+                        + value
+                        + (value == 1 ? " голос" : value < 5 ? " голоса" : " голосов")
+                        + "</p></br>"
+                )
         );
     }
 }

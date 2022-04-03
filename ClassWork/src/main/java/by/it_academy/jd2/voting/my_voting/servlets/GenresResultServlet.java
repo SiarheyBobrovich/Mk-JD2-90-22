@@ -17,7 +17,7 @@ import java.util.Map;
 @WebServlet(name = "GenresResultServlet", urlPatterns = "/genre/result")
 public class GenresResultServlet extends HttpServlet {
 
-    private final static IVoteCounter COUNTER = new GenresCounter(VoteContainer.getInstance());
+    private static final IVoteCounter<String, Integer> COUNTER = new GenresCounter(VoteContainer.getInstance());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,8 +32,13 @@ public class GenresResultServlet extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        sortedMap.forEach((key, value) -> writer.write("<p>Жанр: " + key + " набрал: " + value +
-                (value == 1 ? " голос" : value < 5 ? " голоса" : " голосов") + "</p></br>")
+        sortedMap.forEach((key, value) -> writer.write(
+                "<p>Жанр: "
+                    + key
+                    + " набрал: "
+                    + (value == 1 ? " голос" : value < 5 ? " голоса" : " голосов")
+                    + "</p></br>"
+                )
         );
     }
 }

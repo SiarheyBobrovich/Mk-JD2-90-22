@@ -23,12 +23,19 @@ public class TextAboutResultServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Map<LocalDateTime, String> sortedMap = COUNTER.getSortedMap(Map.Entry.comparingByKey());
+
         resp.setContentType("text/html; charset=UTF-8");
 
-        Map<LocalDateTime, String> sortedMap = COUNTER.getSortedMap(Map.Entry.comparingByKey());
         PrintWriter writer = resp.getWriter();
 
-        sortedMap.forEach((key, value) -> writer.write("<p>Время: " + key.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss")) + " текст: " + value + "</p></br>")
+        sortedMap.forEach((key, value) -> writer.write(
+                "<p>Время: "
+                    + key.format(DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss"))
+                    + " текст: "
+                    + value
+                    + "</p></br>"
+                )
         );
     }
 }
