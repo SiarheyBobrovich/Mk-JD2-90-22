@@ -18,11 +18,11 @@ import java.util.Map;
 public class ArtistsResultServlet extends HttpServlet {
 
     private final static IVoteCounter<String, Integer> COUNTER = new ArtistCounter(VoteContainer.getInstance());
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Map<String, Integer> sortedMap = COUNTER.getSortedMap(new Comparator<Map.Entry<String, Integer>>() {
+
             @Override
             public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
                 return o1.getValue() - o2.getValue();
