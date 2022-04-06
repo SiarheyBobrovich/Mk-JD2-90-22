@@ -9,11 +9,12 @@ import java.util.*;
 
 public class ArtistCounter implements IVoteCounter<String, Integer> {
 
+    private final IVoteContainer container;
+
     public ArtistCounter(IVoteContainer container) {
         this.container = container;
     }
 
-    private final IVoteContainer container;
 
     @Override
     public Map<String, Integer> getSortedMap(Comparator<Map.Entry<String, Integer>> comparator) {

@@ -14,7 +14,7 @@ public class ClassVoteDto {
 
     /**
      * Artist's getter
-     * @return
+     * @return index of artist
      */
     public int getArtist() {
         return artist;
@@ -22,7 +22,7 @@ public class ClassVoteDto {
 
     /**
      * Genres's getter
-     * @return
+     * @return indexes of genres
      */
     public int[] getGenres() {
         return genres;
@@ -30,7 +30,7 @@ public class ClassVoteDto {
 
     /**
      * Text's getter
-     * @return
+     * @return text obout User
      */
     public String getAbout() {
         return about;

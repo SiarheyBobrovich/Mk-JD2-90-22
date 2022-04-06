@@ -179,7 +179,7 @@
                         <configuration>
                             <excludes>
                                 <exclude>**/*Servlet.*</exclude>
-                                <exclude>**/voting/*</exclude>
+<!--                                <exclude>**/voting/*</exclude>-->
                             </excludes>
                             <rules>
                                 <rule>
