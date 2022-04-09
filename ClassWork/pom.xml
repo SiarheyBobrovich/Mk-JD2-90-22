@@ -178,8 +178,9 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>**/*Servlet.*</exclude>
-<!--                                <exclude>**/voting/*</exclude>-->
+                                <exclude>**/*Servlet**.*</exclude>
+                                <exclude>**/servlet**/*</exclude>
+                                <exclude>**/Class**.*</exclude>
                             </excludes>
                             <rules>
                                 <rule>
