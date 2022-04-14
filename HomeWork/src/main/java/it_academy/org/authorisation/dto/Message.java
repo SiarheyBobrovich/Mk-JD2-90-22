@@ -4,25 +4,23 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Message {
-    private final LocalDateTime sendTime;
+    private final LocalDateTime sentTime;
     private final User from;
-    private final User to;
-    private final String message;
+    private final String text;
 
     public Message(User from, User to, String message) {
         checkParam(from, to);
 
         this.from = from;
-        this.to = to;
-        this.message = message;
-        this.sendTime = LocalDateTime.now();
+        this.text = message;
+        this.sentTime = LocalDateTime.now();
     }
 
     @Override
     public String toString() {
-        return "Time=" + sendTime.format(DateTimeFormatter.ofPattern("dd.MM.yy-HH:mm:ss")) +
+        return "Time=" + sentTime.format(DateTimeFormatter.ofPattern("dd.MM.yy-HH:mm:ss")) +
                 ", from: " + from +
-                ", message : " + message;
+                ", message : " + text;
     }
 
     private void checkParam(User from, User to) {

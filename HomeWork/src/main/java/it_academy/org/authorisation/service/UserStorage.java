@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class UserStorage implements IStorage {
 
-    private static UserStorage storage = new UserStorage();
+    private static final UserStorage storage = new UserStorage();
     private final Map<String, User> userContainer;
 
     private UserStorage() {

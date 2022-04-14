@@ -65,7 +65,7 @@ public class MessageServlet extends HttpServlet {
         PrintWriter writer = resp.getWriter();
 
         List<Message> messageList = user.getMessageList();
-        if (messageList.size() == 0) {
+        if (messageList.isEmpty()) {
             writer.write("You don't have any messages yet");
         }else {
             user.getMessageList().forEach(x -> writer.write("<p>" + x.toString() + "</p><br>"));
