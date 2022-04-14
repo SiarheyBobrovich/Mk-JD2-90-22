@@ -39,7 +39,6 @@ public class CookieSaveLoadUtil {
      * Read object from cookie
      * @param cookie - from user
      * @return new <T>Object
-     * @throws IOException if the cookie's value isn't correct
      */
     public static <T> T getObject(Cookie cookie) throws IOException {
         String cookieValue = cookie.getValue();
