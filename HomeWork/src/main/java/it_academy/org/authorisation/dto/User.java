@@ -1,11 +1,16 @@
 package it_academy.org.authorisation.dto;
 
+import it_academy.org.authorisation.dto.enums.Role;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable {
 
+    private final List<Message> messageList = new ArrayList<>();
     private final String login;
     private String password;
     private String firstName;
@@ -15,6 +20,7 @@ public class User implements Serializable {
     private final LocalDateTime authorisationDate;
     private Role status;
 
+
     public User(String login, String password, String firstName, String lastName, LocalDate birthday) {
         this.login = login;
         this.password = password;
@@ -23,6 +29,14 @@ public class User implements Serializable {
         this.birthday = birthday;
         this.status = Role.USER;
         this.authorisationDate = LocalDateTime.now();
+    }
+
+    public synchronized void addMessage(Message message) {
+        this.messageList.add(message);
+    }
+
+    public List<Message> getMessageList() {
+        return List.copyOf(messageList);
     }
 
     public String getLogin() {
@@ -75,5 +89,11 @@ public class User implements Serializable {
 
     public void setStatus(Role status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return lastName + " " + firstName + " " +
+                (thirdName != null ? thirdName : "");
     }
 }

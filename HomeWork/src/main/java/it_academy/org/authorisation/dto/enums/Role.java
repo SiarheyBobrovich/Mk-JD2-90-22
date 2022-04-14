@@ -1,4 +1,4 @@
-package it_academy.org.authorisation.dto;
+package it_academy.org.authorisation.dto.enums;
 
 import java.io.Serializable;
 

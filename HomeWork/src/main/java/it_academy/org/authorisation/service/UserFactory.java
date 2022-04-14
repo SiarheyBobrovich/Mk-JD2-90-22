@@ -1,5 +1,6 @@
 package it_academy.org.authorisation.service;
 
+import it_academy.org.authorisation.dto.enums.Role;
 import it_academy.org.authorisation.dto.User;
 import it_academy.org.authorisation.service.api.IUserFactory;
 
@@ -34,6 +35,7 @@ public class UserFactory implements IUserFactory {
         }
 
         User user = new User(login, password, firstName, lastName, birthday);
+        user.setStatus(Role.USER);
 
         if (thirdName != null) {
             user.setThirdName(thirdName);
