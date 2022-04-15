@@ -1,10 +1,6 @@
-package it_academy.org.authorisation.servlets;
+package it_academy.org.messenger.servlets;
 
-import it_academy.org.authorisation.dto.User;
-import it_academy.org.authorisation.service.api.IStorage;
-import it_academy.org.authorisation.service.UserStorage;
-import it_academy.org.authorisation.service.UserFactory;
-import it_academy.org.authorisation.service.api.IUserFactory;
+import it_academy.org.messenger.service.UserStorage;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,13 +30,8 @@ public class RegistrationServlet extends HttpServlet {
         String thirdName = req.getParameter(THIRD_NAME);
         String birthday = req.getParameter(BIRTHDAY);
 
-        IUserFactory factory = new UserFactory();
-        User user;
-
         try {
-            user = factory.getUser(login, pass, firstName, lastName, thirdName, birthday);
-            IStorage storage = UserStorage.getInstance();
-            storage.save(user);
+            UserStorage.getInstance().save(login, pass, firstName, lastName, thirdName, birthday);
 
         }catch (IllegalArgumentException e) {
             resp.sendError(400, e.getMessage());

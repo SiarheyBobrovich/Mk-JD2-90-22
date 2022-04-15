@@ -1,8 +1,8 @@
-package it_academy.org.authorisation.servlets;
+package it_academy.org.messenger.servlets;
 
-import it_academy.org.authorisation.dto.User;
-import it_academy.org.authorisation.service.UserStorage;
-import it_academy.org.authorisation.service.api.IStorage;
+import it_academy.org.messenger.core.dto.User;
+import it_academy.org.messenger.service.UserStorage;
+import it_academy.org.messenger.service.api.IUserStorage;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +15,7 @@ import java.io.IOException;
 @WebServlet(name ="AuthorisationServlet", urlPatterns = "/api/login")
 public class AuthorisationServlet extends HttpServlet {
 
-    private final IStorage storage;
+    private final IUserStorage<User> storage;
     private static final String LOGIN_PARAM = "login";
     private static final String PASSWORD_PARAM = "password";
 
@@ -32,9 +32,8 @@ public class AuthorisationServlet extends HttpServlet {
 
         try {
             if (storage.check(login, password)) {
-                User user = storage.get(login);
                 HttpSession session = req.getSession();
-                session.setAttribute("user", user);
+                session.setAttribute("user", storage.get(login));
             }
         }catch (IllegalArgumentException e) {
             resp.sendError(400, e.getMessage());

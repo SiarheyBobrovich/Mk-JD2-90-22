@@ -1,16 +1,14 @@
-package it_academy.org.authorisation.dto;
+package it_academy.org.messenger.core.dto;
 
-import it_academy.org.authorisation.dto.enums.Role;
+import it_academy.org.messenger.core.dto.enums.Role;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class User implements Serializable {
 
-    private final List<Message> messageList = new ArrayList<>();
     private final String login;
     private String password;
     private String firstName;
@@ -20,7 +18,6 @@ public class User implements Serializable {
     private final LocalDateTime authorisationDate;
     private Role status;
 
-
     public User(String login, String password, String firstName, String lastName, LocalDate birthday) {
         this.login = login;
         this.password = password;
@@ -29,14 +26,6 @@ public class User implements Serializable {
         this.birthday = birthday;
         this.status = Role.USER;
         this.authorisationDate = LocalDateTime.now();
-    }
-
-    public synchronized void addMessage(Message message) {
-        this.messageList.add(message);
-    }
-
-    public List<Message> getMessageList() {
-        return List.copyOf(messageList);
     }
 
     public String getLogin() {
@@ -95,5 +84,21 @@ public class User implements Serializable {
     public String toString() {
         return lastName + " " + firstName + " " +
                 (thirdName != null ? thirdName : "");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return login.equals(user.login);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login) +
+                Objects.hash(firstName) +
+                Objects.hash(lastName) +
+                Objects.hash(birthday);
     }
 }

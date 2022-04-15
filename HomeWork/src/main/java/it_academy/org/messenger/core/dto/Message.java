@@ -1,4 +1,4 @@
-package it_academy.org.authorisation.dto;
+package it_academy.org.messenger.core.dto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,9 +23,16 @@ public class Message {
                 ", message : " + text;
     }
 
+    /**
+     * Check the correct params
+     * @param from User who has sent massage
+     * @param to - User who has taken message
+     */
     private void checkParam(User from, User to) {
-        if (from == null || to == null) {
+        if (from == null) {
             throw new IllegalArgumentException("Message isn't correct");
+        }else if (to == null) {
+            throw new IllegalArgumentException("User doesn't exist");
         }
     }
 }

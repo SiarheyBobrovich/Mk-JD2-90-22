@@ -1,14 +1,14 @@
-package it_academy.org.authorisation.service;
+package it_academy.org.messenger.service;
 
-import it_academy.org.authorisation.dto.enums.Role;
-import it_academy.org.authorisation.dto.User;
-import it_academy.org.authorisation.service.api.IUserFactory;
+import it_academy.org.messenger.core.dto.User;
+import it_academy.org.messenger.core.dto.enums.Role;
+import it_academy.org.messenger.service.api.IUserFactory;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class UserFactory implements IUserFactory {
+public class UserFactory implements IUserFactory<User> {
 
     private final DateTimeFormatter formatter;
 
@@ -20,7 +20,7 @@ public class UserFactory implements IUserFactory {
     }
 
     @Override
-    public User getUser(String login, String password, String firstName, String lastName, String thirdName, String userBirthday) {
+    public User createUser(String login, String password, String firstName, String lastName, String thirdName, String userBirthday) {
         this.errorMessage = "Invalid:";
         isInvalid = false;
 

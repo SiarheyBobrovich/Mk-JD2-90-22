@@ -1,4 +1,4 @@
-package it_academy.org.authorisation.dto.enums;
+package it_academy.org.messenger.core.dto.enums;
 
 import java.io.Serializable;
 
