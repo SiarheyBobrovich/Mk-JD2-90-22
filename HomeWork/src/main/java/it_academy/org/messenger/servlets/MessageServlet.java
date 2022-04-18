@@ -6,6 +6,7 @@ import it_academy.org.messenger.service.UserStorage;
 import it_academy.org.messenger.service.api.IUserStorage;
 import it_academy.org.messenger.service.StatisticStorage;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,20 +37,29 @@ public class MessageServlet extends HttpServlet {
         User fromUser = (User)req.getSession().getAttribute("user");
 
         if (fromUser == null) {
-            resp.sendError(401, "You are an unauthorized user");
+            sendError(req, resp, "Authorise to send message", "/ui/signIn.jsp");
+//            req.setAttribute("error", "Authorise to send message");
+//            req.getRequestDispatcher("/ui/signIn.jsp").forward(req, resp);
             return;
-        }else if (text == null) {
-            resp.sendError(400, "The message is incorrect");
+
+        }else if (text == null || text.length() == 0) {
+            sendError(req, resp, "Enter the message", "/ui/user/chats.jsp");
+//            req.setAttribute("error", "Enter the message");
+//            req.getRequestDispatcher("/ui/user/chats").forward(req, resp);
             return;
         }
 
         try {
             storage.addMessages(fromUser.getLogin(), toUserLogin, text);
             StatisticStorage.getInstance().incrementCountMessages();
-            resp.getWriter().append("Message has been sent");
+            sendError(req, resp, "Message has been sent", "/ui/user/chats.jsp");
+            //resp.sendRedirect("/ui/user/chats");
+            //req.setAttribute("error", "Message has been sent");
+            //req.getRequestDispatcher("/ui/user/chats.jsp").forward(req,resp);
+            return;
 
         }catch (IllegalArgumentException e) {
-            resp.sendError(400, e.getMessage());
+            sendError(req, resp, e.getMessage(), "/ui/user/chats");
             return;
         }
     }
@@ -59,7 +69,8 @@ public class MessageServlet extends HttpServlet {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         if (user == null) {
-            resp.sendError(401, "You are an unauthorized user");
+            sendError(req, resp, "You are an unauthorized user", "/ui/signIn.jsp");
+//            resp.sendError(401, "You are an unauthorized user");
             return;
         }
 
@@ -73,5 +84,14 @@ public class MessageServlet extends HttpServlet {
             messageList.forEach(x -> writer.write("<p>" + x.toString() + "</p><br>"));
         }
 
+    }
+
+    private void sendError(HttpServletRequest req,
+                           HttpServletResponse resp,
+                           String message,
+                           String path)
+            throws ServletException, IOException {
+        req.setAttribute("error", message);
+        req.getRequestDispatcher(path).forward(req, resp);
     }
 }

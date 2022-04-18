@@ -37,7 +37,7 @@ public class UserFactory implements IUserFactory<User> {
         User user = new User(login, password, firstName, lastName, birthday);
         user.setStatus(Role.USER);
 
-        if (thirdName != null) {
+        if (thirdName != null && thirdName.length() != 0) {
             user.setThirdName(thirdName);
         }
 
@@ -45,7 +45,7 @@ public class UserFactory implements IUserFactory<User> {
     }
 
     private void checkParameter(String str, String param) {
-        if (str == null) {
+        if (str == null || str.length() == 0) {
             this.errorMessage += (!this.isInvalid ? " " : ", ") + param;
             this.isInvalid = true;
         }

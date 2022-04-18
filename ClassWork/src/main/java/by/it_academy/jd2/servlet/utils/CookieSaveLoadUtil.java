@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
 public class CookieSaveLoadUtil {
 
     /**
-     *
      * @param name's cookie
      * @param obj to write to cookie's value
      * @param maxAge - int. How long cookie has lived

@@ -22,7 +22,6 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-
         String login = req.getParameter(LOGIN);
         String pass = req.getParameter(PASSWORD);
         String firstName = req.getParameter(FIRST_NAME);
@@ -34,8 +33,9 @@ public class RegistrationServlet extends HttpServlet {
             UserStorage.getInstance().save(login, pass, firstName, lastName, thirdName, birthday);
 
         }catch (IllegalArgumentException e) {
-            resp.sendError(400, e.getMessage());
-            return;
+            req.setAttribute("error", e.getMessage());
+            req.getRequestDispatcher("/ui/signUp.jsp").forward(req, resp);
         }
+        resp.sendRedirect("../ui/signIn");
     }
 }

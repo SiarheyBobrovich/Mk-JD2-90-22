@@ -14,14 +14,11 @@ import java.util.Map;
 public class UserStorage implements IUserStorage<User> {
 
     private static final IUserStorage<User> storage = new UserStorage();
-    private final IUserFactory<User> factory;
-
     private final Map<String, User> userContainer;
     private final Map<User, List<Message>> messageMap;
 
     private UserStorage() {
         this.userContainer = new HashMap<>();
-        this.factory = new UserFactory();
         this.messageMap = new HashMap<>();
 
         save("admin", "admin",
@@ -61,14 +58,22 @@ public class UserStorage implements IUserStorage<User> {
 
     @Override
     public void save(String login, String password, String firstName, String lastName, String thirdName, String birthday) {
+        IUserFactory<User> factory = new UserFactory();
         User user = factory.createUser(login, password, firstName, lastName, thirdName, birthday);
 
-        if (userContainer.containsKey(user.getLogin())){
-            throw new IllegalArgumentException("This login's already exist");
+        synchronized (userContainer) {
+
+            if (userContainer.containsKey(login)){
+                throw new IllegalArgumentException("This login's already exist");
+            }
+            this.userContainer.put(user.getLogin(), user);
         }
 
-        this.messageMap.put(user, new ArrayList<>());
-        this.userContainer.put(user.getLogin(), user);
+        synchronized (this.messageMap) {
+            this.messageMap.put(user, new ArrayList<>());
+        }
+
+
     }
 
     @Override

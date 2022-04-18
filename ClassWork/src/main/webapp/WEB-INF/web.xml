@@ -5,6 +5,20 @@
 
     <display-name>BobrovichSiarhey</display-name>
 
+<!--     Конфигурация jsp Random.jsp-->
+
+        <servlet>
+            <servlet-name>RandomJsp</servlet-name> <!-- jsp-file -->
+            <jsp-file>/Random.jsp</jsp-file> <!-- jsp-file -->
+        </servlet>
+
+    <!--     Конфигурация jsp Random.jsp-->
+
+        <servlet-mapping>
+            <servlet-name>RandomJsp</servlet-name> <!-- jsp -->
+            <url-pattern>/random</url-pattern> <!-- Ссылка браузера -->
+        </servlet-mapping>
+
 
 <!--  Анотация, ставится над сервлетом и указывается имя сервлета, и URL(адрес) сервлета  -->
     <!-- @WebServlet(name = "****", urlPatterns = "****" -->

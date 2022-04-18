@@ -2,9 +2,11 @@ package it_academy.org.messenger.servlets.listeners;
 
 import it_academy.org.messenger.service.StatisticStorage;
 
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
+@WebListener
 public class CountUserListener implements HttpSessionAttributeListener {
 
     private static final StatisticStorage storage = StatisticStorage.getInstance();

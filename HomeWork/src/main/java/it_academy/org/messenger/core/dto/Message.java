@@ -18,7 +18,7 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Time=" + sentTime.format(DateTimeFormatter.ofPattern("dd.MM.yy-HH:mm:ss")) +
+        return sentTime.format(DateTimeFormatter.ofPattern("dd.MM.yy-HH:mm:ss")) +
                 ", from: " + from +
                 ", message : " + text;
     }
