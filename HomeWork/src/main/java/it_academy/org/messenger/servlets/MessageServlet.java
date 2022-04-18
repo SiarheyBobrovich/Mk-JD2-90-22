@@ -37,13 +37,13 @@ public class MessageServlet extends HttpServlet {
         User fromUser = (User)req.getSession().getAttribute("user");
 
         if (fromUser == null) {
-            sendError(req, resp, "Authorise to send message", "/ui/signIn.jsp");
+            sendError(req, resp, "Authorise to send message", "/ui/signIn");
 //            req.setAttribute("error", "Authorise to send message");
 //            req.getRequestDispatcher("/ui/signIn.jsp").forward(req, resp);
             return;
 
         }else if (text == null || text.length() == 0) {
-            sendError(req, resp, "Enter the message", "/ui/user/chats.jsp");
+            sendError(req, resp, "Enter the message", "/ui/user/chats");
 //            req.setAttribute("error", "Enter the message");
 //            req.getRequestDispatcher("/ui/user/chats").forward(req, resp);
             return;
@@ -52,7 +52,7 @@ public class MessageServlet extends HttpServlet {
         try {
             storage.addMessages(fromUser.getLogin(), toUserLogin, text);
             StatisticStorage.getInstance().incrementCountMessages();
-            sendError(req, resp, "Message has been sent", "/ui/user/chats.jsp");
+            sendError(req, resp, "Message has been sent", "/ui/user/chats");
             //resp.sendRedirect("/ui/user/chats");
             //req.setAttribute("error", "Message has been sent");
             //req.getRequestDispatcher("/ui/user/chats.jsp").forward(req,resp);
