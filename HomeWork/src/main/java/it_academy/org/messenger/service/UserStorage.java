@@ -23,7 +23,7 @@ public class UserStorage implements IUserStorage<User> {
 
         save("admin", "admin",
                 "admin", "admin", "admin",
-                "27.06.1987"
+                "1987-06-27"
 
         );
 
@@ -44,13 +44,13 @@ public class UserStorage implements IUserStorage<User> {
     public boolean check(String authenticator, String password) {
 
         if (!userContainer.containsKey(authenticator)) {
-            throw new IllegalArgumentException("Invalid login");
+            throw new IllegalArgumentException("Invalid login!");
         }
 
         User user = userContainer.get(authenticator);
 
         if (!user.getPassword().equalsIgnoreCase(password)) {
-            throw new IllegalArgumentException("Invalid password");
+            throw new IllegalArgumentException("Invalid password!");
         }
 
         return true;
@@ -64,7 +64,7 @@ public class UserStorage implements IUserStorage<User> {
         synchronized (userContainer) {
 
             if (userContainer.containsKey(login)){
-                throw new IllegalArgumentException("This login's already exist");
+                throw new IllegalArgumentException("This login's already exist!");
             }
             this.userContainer.put(user.getLogin(), user);
         }
@@ -77,7 +77,7 @@ public class UserStorage implements IUserStorage<User> {
     }
 
     @Override
-    public synchronized void addMessages(String loginFrom, String loginTo, String text) {
+    public synchronized void addMessage(String loginFrom, String loginTo, String text) {
         User userFrom = this.userContainer.get(loginFrom);
         User userTo = this.userContainer.get(loginTo);
         this.messageMap.get(userTo)

@@ -10,14 +10,10 @@ import java.time.format.DateTimeParseException;
 
 public class UserFactory implements IUserFactory<User> {
 
-    private final DateTimeFormatter formatter;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private boolean isInvalid;
     private String errorMessage;
-
-    public UserFactory() {
-        formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-    }
 
     @Override
     public User createUser(String login, String password, String firstName, String lastName, String thirdName, String userBirthday) {
@@ -62,8 +58,7 @@ public class UserFactory implements IUserFactory<User> {
             }catch (DateTimeParseException e) {
                 this.errorMessage +=
                         (!this.isInvalid ? " " : ", ") +
-                        "birthday's format " +
-                        "(day.month.year)";
+                        "birthday";
                 this.isInvalid = true;
                 return null;
             }

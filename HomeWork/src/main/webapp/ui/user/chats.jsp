@@ -8,19 +8,23 @@
 
 <%@include file="/includes/main.jsp"%>
 
-<%@include file="/includes/send.jsp"%>
+<p style="text-align:center; font-size:30">
+    <strong>Your message</strong><br>
+</p>
 
-    <h1>
-        <c:choose>
-            <c:when test="${messages.size() > 0}">
-                Your messages
-            </c:when>
-        </c:choose>
-    </h1>
-    <ul>
-        <c:forEach var="message" items="${messages}">
-            <li><c:out value="${message}" /></li>
-        </c:forEach>
-    </ul>
+<p>
+    <c:choose>
+        <c:when test="${messages.size() > 0}">
+            Your messages:<br>
+            <c:forEach var="message" items="${messages}">
+                <li style="color:blue"><c:out value="${message}"/></li>
+            </c:forEach>
+        </c:when>
+        <c:otherwise>
+            You have no any messages, yet.
+        </c:otherwise>
+    </c:choose>
+</p>
+<ul>
 
-    <%@include file="/ui/user/message.jsp"%>
+</ul>

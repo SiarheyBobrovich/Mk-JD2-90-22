@@ -9,7 +9,7 @@ public class Message {
     private final String text;
 
     public Message(User from, User to, String message) {
-        checkParam(from, to);
+        checkParam(from, to, message);
 
         this.from = from;
         this.text = message;
@@ -28,11 +28,15 @@ public class Message {
      * @param from User who has sent massage
      * @param to - User who has taken message
      */
-    private void checkParam(User from, User to) {
+    private void checkParam(User from, User to, String text) {
         if (from == null) {
-            throw new IllegalArgumentException("Message isn't correct");
+            throw new IllegalStateException("Please sing in!");
+
         }else if (to == null) {
-            throw new IllegalArgumentException("User doesn't exist");
+            throw new IllegalArgumentException("User doesn't exist!");
+
+        } else if (text == null || text.length() == 0) {
+            throw new IllegalArgumentException("Enter the message!");
         }
     }
 }

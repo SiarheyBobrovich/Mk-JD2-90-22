@@ -23,19 +23,14 @@ public class ChatsServlet extends HttpServlet {
         Object obj = req.getSession().getAttribute("user");
 
         if (obj == null){
-            req.setAttribute("error", "Authorise to send message");
-            req.getRequestDispatcher("/ui/signIn").forward(req, resp);
+            resp.sendRedirect( req.getContextPath() + "/ui/signIn" + "?error=Authorise to see your messages");
             return;
         }
+
         User user = (User) obj;
         List<Message> messages = storage.getMessages(user.getLogin());
         req.setAttribute("messages", messages);
 
         req.getRequestDispatcher("/ui/user/chats.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
     }
 }

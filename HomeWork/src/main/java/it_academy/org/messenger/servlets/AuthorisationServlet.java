@@ -35,11 +35,13 @@ public class AuthorisationServlet extends HttpServlet {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", storage.get(login));
             }
+
         }catch (IllegalArgumentException e) {
-            req.setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/ui/signIn.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/ui/signIn?error=" + e.getMessage());
+            return;
         }
 
-        resp.sendRedirect("../ui/user/chats");
+        resp.sendRedirect(req.getContextPath() + "/ui");
+        return;
     }
 }

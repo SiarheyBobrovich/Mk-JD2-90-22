@@ -2,13 +2,10 @@
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%!
-    private String message;
-%>
+<h3 style="color:red">
+    ${param.error!=null?param.error:""}
+</h3>
 
-<%
-    message = (String)request.getAttribute("error");
-    request.removeAttribute("error");
-%>
-
-<h3><%= message != null ? message : "" %></h3>
+<h3 style="color:green">
+    ${param.message!=null?param.message:""}
+</h3>

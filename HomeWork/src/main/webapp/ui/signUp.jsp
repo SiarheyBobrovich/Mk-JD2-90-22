@@ -4,18 +4,27 @@
 
 <%@include file="/includes/main.jsp"%>
 
-<h1>Sign up page</h1>
+<p style="text-align:center; font-size:30">
+    <strong>Sign up page</strong><br>
+</p>
 
-<%@include file="/includes/send.jsp"%>
+<div style="text-align:center; font-size:15px">
+    <%@include file="/includes/send.jsp"%><br>
+</div>
 
-<form action=<%= request.getContextPath() + "/api/user"%> method="POST">
- Enter: * required field
-        <p>Login*:       <input name ="login"</p><br>
-        <p>Password*:    <input name ="password"</p><br>
-        <p>Surname*:     <input name ="lastName"</p><br>
-        <p>Name*:        <input name ="firstName"</p><br>
-        <p>Third name:  <input name ="thirdName"</p><br>
-        <p>Birthday*:    <input name ="birthday" placeholder="example: 24.08.1991"> </p><br>
+<div style="text-align:center">
+    <span style="color:red"> * </span>required field<br>
+</div>
 
- <p><input type = "submit"></p>
+<div style="text-align:center">
+    <form action=<%= request.getContextPath() + "/api/user"%> method="POST">
+            <p>Login <span style="color:red"> * </span>:        <input name ="login"</p><br>
+            <p>Password <span style="color:red"> * </span>:     <input name ="password"</p><br>
+            <p>LastName <span style="color:red"> * </span>:     <input name ="lastName"</p><br>
+            <p>FirstName <span style="color:red"> * </span>:    <input name ="firstName"</p><br>
+            <p>Third name:                                      <input name ="thirdName"</p><br>
+            <p>Birthday <span style="color:red"> * </span>:     <input name ="birthday" type="date"> </p><br>
+
+     <p><input type = "submit"></p>
+ </div>
  </form>

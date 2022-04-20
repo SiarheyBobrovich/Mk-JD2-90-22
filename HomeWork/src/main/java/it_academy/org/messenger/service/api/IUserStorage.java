@@ -38,7 +38,7 @@ public interface IUserStorage<T extends User> {
      * @param loginTo - User's login who taken the message
      * @param text - Message's text
      */
-    void addMessages(String loginFrom, String loginTo, String text);
+    void addMessage(String loginFrom, String loginTo, String text);
 
     /**
      * Method to get user's messages

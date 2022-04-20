@@ -96,9 +96,6 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(login) +
-                Objects.hash(firstName) +
-                Objects.hash(lastName) +
-                Objects.hash(birthday);
+        return Objects.hash(login);
     }
 }

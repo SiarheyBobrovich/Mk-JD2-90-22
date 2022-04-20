@@ -33,9 +33,10 @@ public class RegistrationServlet extends HttpServlet {
             UserStorage.getInstance().save(login, pass, firstName, lastName, thirdName, birthday);
 
         }catch (IllegalArgumentException e) {
-            req.setAttribute("error", e.getMessage());
-            req.getRequestDispatcher("/ui/signUp.jsp").forward(req, resp);
+            resp.sendRedirect(req.getContextPath() + "/ui/signUp.jsp?error="+ e.getMessage());
+            return;
         }
-        resp.sendRedirect("../ui/signIn");
+        resp.sendRedirect(req.getContextPath() + "/ui");
+        return;
     }
 }

@@ -4,15 +4,18 @@
 
 <%@include file="/includes/main.jsp"%>
 
-<h1>Sign in page</h1>
+<p style="text-align:center; font-size:30">
+    <strong>Sign in page</strong><br>
+</p>
 
-<%@include file="/includes/send.jsp"%>
+<div style="text-align:center; font-size:15px">
+    <%@include file="/includes/send.jsp"%>
+</div>
 
-
-<form action=<%= request.getContextPath() + "/api/login"%> method="POST">
- Enter:
-        <p>Login:<input name ="login"</p><br>
-        <p>Password:<input name ="password"</p><br>
-        <p><input type = "submit"></p>
- </form>
-
+<div style="text-align:center">
+    <form action=<%= request.getContextPath() + "/api/login"%> method="POST">
+        Login:<input name ="login"><br>
+        Password:<input name ="password"><br>
+        <input type = "submit">
+    </form>
+</div>
