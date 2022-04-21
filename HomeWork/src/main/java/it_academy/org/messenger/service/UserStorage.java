@@ -21,14 +21,15 @@ public class UserStorage implements IUserStorage<User> {
         this.userContainer = new HashMap<>();
         this.messageMap = new HashMap<>();
 
+        addAdmin();
+    }
+
+    private void addAdmin() {
         save("admin", "admin",
                 "admin", "admin", "admin",
                 "1987-06-27"
-
         );
-
         this.userContainer.get("admin").setStatus(Role.ADMIN);
-
     }
 
     public static IUserStorage<User> getInstance() {
