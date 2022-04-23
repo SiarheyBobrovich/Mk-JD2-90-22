@@ -9,11 +9,9 @@ public class StatisticStorage implements IStatisticStorage {
     private long countUsers;
     private long countMessages;
 
-
     private StatisticStorage() {
 
     }
-
 
     public static StatisticStorage getInstance() {
         return storage;

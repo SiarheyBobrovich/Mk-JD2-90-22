@@ -9,6 +9,7 @@ import java.io.IOException;
 
 @WebServlet(name = "StatisticsServlet", urlPatterns = "/ui/admin/statistics")
 public class StatisticsServlet extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/api/admin/statistics").forward(req, resp);

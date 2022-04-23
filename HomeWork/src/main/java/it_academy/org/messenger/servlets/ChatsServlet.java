@@ -20,14 +20,8 @@ public class ChatsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Object obj = req.getSession().getAttribute("user");
+        User user = (User)req.getSession().getAttribute("user");
 
-        if (obj == null){
-            resp.sendRedirect( req.getContextPath() + "/ui/signIn" + "?error=Authorise to see your messages");
-            return;
-        }
-
-        User user = (User) obj;
         List<Message> messages = storage.getMessages(user.getLogin());
         req.setAttribute("messages", messages);
 
