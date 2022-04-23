@@ -4,8 +4,10 @@
 
 <%@include file="/includes/main.jsp"%>
 
-<p style="text-align:center; font-size:30">
-    <strong>Send message</strong><br>
+<p style="text-align:center; font-size:40px">
+    <strong>
+        Send message page
+    </strong><br>
 </p>
 
 <div style="text-align:center; font-size:15px">

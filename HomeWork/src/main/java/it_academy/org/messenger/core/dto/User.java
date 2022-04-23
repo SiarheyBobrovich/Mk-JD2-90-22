@@ -82,8 +82,8 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return lastName + " " + firstName + " " +
-                (thirdName != null ? thirdName : "");
+        return lastName + " " + firstName +
+                (thirdName != null ? (" " + thirdName) : "");
     }
 
     @Override
@@ -91,7 +91,7 @@ public class User implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return login.equals(user.login);
+        return login.equalsIgnoreCase(user.login);
     }
 
     @Override

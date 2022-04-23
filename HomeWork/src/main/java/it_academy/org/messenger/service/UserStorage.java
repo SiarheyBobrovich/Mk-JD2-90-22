@@ -38,11 +38,14 @@ public class UserStorage implements IUserStorage<User> {
 
     @Override
     public User get(String authenticator) {
+        authenticator = authenticator.toLowerCase();
+
         return userContainer.get(authenticator);
     }
 
     @Override
     public boolean check(String authenticator, String password) {
+        authenticator = authenticator.toLowerCase();
 
         if (!userContainer.containsKey(authenticator)) {
             throw new IllegalArgumentException("Invalid login!");
@@ -59,6 +62,8 @@ public class UserStorage implements IUserStorage<User> {
 
     @Override
     public void save(String login, String password, String firstName, String lastName, String thirdName, String birthday) {
+        login = login.toLowerCase();
+
         IUserFactory<User> factory = new UserFactory();
         User user = factory.createUser(login, password, firstName, lastName, thirdName, birthday);
 
@@ -79,6 +84,9 @@ public class UserStorage implements IUserStorage<User> {
 
     @Override
     public synchronized void addMessage(String loginFrom, String loginTo, String text) {
+        loginFrom = loginFrom.toLowerCase();
+        loginTo = loginTo.toLowerCase();
+
         User userFrom = this.userContainer.get(loginFrom);
         User userTo = this.userContainer.get(loginTo);
         this.messageMap.get(userTo)
@@ -88,6 +96,8 @@ public class UserStorage implements IUserStorage<User> {
 
     @Override
     public List<Message> getMessages(String login) {
+        login = login.toLowerCase();
+
         User user = this.userContainer.get(login);
         return this.messageMap.get(user);
     }

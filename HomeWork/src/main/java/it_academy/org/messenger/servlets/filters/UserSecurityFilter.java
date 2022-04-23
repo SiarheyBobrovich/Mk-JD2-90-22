@@ -24,8 +24,13 @@ public class UserSecurityFilter implements Filter {
         if ((session != null) && session.getAttribute("user") != null) {
             chain.doFilter(request, response);
         }else {
-            resp.sendRedirect(contextPath + "/ui/signIn");
-            return;
+            if (req.getServletPath().equalsIgnoreCase("/api/message")) {
+                resp.sendRedirect(contextPath + "/ui/signIn" + "?error=Please sing in to send a message!");
+                return;
+            }else {
+                resp.sendRedirect(contextPath + "/ui/signIn" + "?error=Please sing in to see messages!");
+                return;
+            }
         }
     }
 

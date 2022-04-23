@@ -1,15 +1,30 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ page language="java"
     contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
-    import="it_academy.org.messenger.core.dto.User"
 %>
 
-<%@include file="/includes/main.jsp"%>
-
 <body>
+    <div>
+        <%@include file="/includes/main.jsp"%>
+    </div>
+
+    <p style="text-align:center; font-size:15px">
+        <%@include file="/includes/send.jsp"%><br>
+    </p>
+
 	<p style="font-size: 30px; text-align: center">
 		<strong>
-		    Welcome ${sessionScope.user != null ? sessionScope.user : ""}!
+
+		    <c:choose>
+		        <c:when test="${user != null}">
+		            Hello <c:out value="${user}"/>!
+		        </c:when>
+		        <c:otherwise>
+		            Hello!
+		        </c:otherwise>
+		    </c:choose>
 		</strong>
 	</p>
 </body>

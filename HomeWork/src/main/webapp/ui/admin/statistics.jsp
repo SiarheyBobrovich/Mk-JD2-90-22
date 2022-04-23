@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"
 %>
 
-<%@ include file="/includes/main.jsp"%><br>
+<%@ include file="/includes/main.jsp"%>
 
 <div style="text-align:center">
     <p>Count users: <c:out value="${countUsers}"/></p><br>

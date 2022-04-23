@@ -36,7 +36,7 @@ public class RegistrationServlet extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/ui/signUp.jsp?error="+ e.getMessage());
             return;
         }
-        resp.sendRedirect(req.getContextPath() + "/ui");
+        resp.sendRedirect(req.getContextPath() + "/ui" + "?message=You've successfully registered.");
         return;
     }
 }

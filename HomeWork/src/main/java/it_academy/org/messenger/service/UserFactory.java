@@ -7,19 +7,17 @@ import it_academy.org.messenger.service.api.IUserFactory;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
 public class UserFactory implements IUserFactory<User> {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-    private boolean isInvalid;
-    private String errorMessage;
+    private boolean isInvalid = false;
+    private String errorMessage = "Invalid:";
 
     @Override
     public User createUser(String login, String password, String firstName, String lastName, String thirdName, String userBirthday) {
-        this.errorMessage = "Invalid:";
-        isInvalid = false;
-
         checkParameter(login, "login");
         checkParameter(password, "password");
         checkParameter(firstName, "firstName");
