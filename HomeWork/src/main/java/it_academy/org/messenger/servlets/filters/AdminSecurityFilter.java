@@ -33,7 +33,6 @@ public class AdminSecurityFilter implements Filter {
             }
         }else {
             resp.sendRedirect(contextPath + "/ui/signIn");
-            resp.sendRedirect(contextPath + "/");
             return;
         }
     }

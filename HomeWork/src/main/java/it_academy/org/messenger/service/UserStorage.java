@@ -38,23 +38,15 @@ public class UserStorage implements IUserStorage<User> {
 
     @Override
     public User get(String authenticator) {
-        authenticator = authenticator.toLowerCase();
-
-        return userContainer.get(authenticator);
+        return userContainer.get(authenticator.toLowerCase());
     }
 
     @Override
     public boolean check(String authenticator, String password) {
-        authenticator = authenticator.toLowerCase();
+        User user = userContainer.get(authenticator.toLowerCase());
 
-        if (!userContainer.containsKey(authenticator)) {
-            throw new IllegalArgumentException("Invalid login!");
-        }
-
-        User user = userContainer.get(authenticator);
-
-        if (!user.getPassword().equalsIgnoreCase(password)) {
-            throw new IllegalArgumentException("Invalid password!");
+        if (user == null || !user.getPassword().equals(password)) {
+            throw new IllegalArgumentException("Invalid login/password!");
         }
 
         return true;
@@ -64,22 +56,20 @@ public class UserStorage implements IUserStorage<User> {
     public void save(String login, String password, String firstName, String lastName, String thirdName, String birthday) {
         login = login.toLowerCase();
 
+        if (userContainer.containsKey(login)){
+            throw new IllegalArgumentException("This login's already exist!");
+        }
+
         IUserFactory<User> factory = new UserFactory();
         User user = factory.createUser(login, password, firstName, lastName, thirdName, birthday);
 
         synchronized (userContainer) {
-
-            if (userContainer.containsKey(login)){
-                throw new IllegalArgumentException("This login's already exist!");
-            }
             this.userContainer.put(user.getLogin(), user);
         }
 
         synchronized (this.messageMap) {
             this.messageMap.put(user, new ArrayList<>());
         }
-
-
     }
 
     @Override

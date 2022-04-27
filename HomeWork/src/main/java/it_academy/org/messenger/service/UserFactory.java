@@ -7,7 +7,6 @@ import it_academy.org.messenger.service.api.IUserFactory;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Locale;
 
 public class UserFactory implements IUserFactory<User> {
 
