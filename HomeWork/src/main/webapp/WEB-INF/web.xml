@@ -6,7 +6,7 @@
     <display-name>HomeWork_1</display-name>
 
 <!--    <listener>-->
-<!--        <listener-class>it_academy.org.messenger.servlets.listeners.CountUserListener</listener-class>-->
+<!--        <listener-class>org.it_academy.messenger.servlets.listeners.CountUserListener</listener-class>-->
 <!--    </listener>-->
 
 </web-app>
