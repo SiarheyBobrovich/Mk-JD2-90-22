@@ -1,6 +1,8 @@
 package org.it_academy.airportsInfo.dto;
 
-public class Airport {
+import org.it_academy.airportsInfo.dto.api.BaseAirportObject;
+
+public class Airport implements BaseAirportObject {
 
     private String code;
     private String name;
@@ -38,13 +40,14 @@ public class Airport {
     }
 
     @Override
-    public String toString() {
-        return "Airport{" +
-                "code='" + code + '\'' +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", coordinates='" + coordinates + '\'' +
-                ", timezone='" + timezone + '\'' +
-                '}';
+    public String getTableString() {
+        String startTableTag = "<td>";
+        String endTableTag = "</td>";
+
+        return startTableTag + code + endTableTag +
+                startTableTag + name + endTableTag +
+                startTableTag + city + endTableTag +
+                startTableTag + coordinates + endTableTag +
+                startTableTag + timezone + endTableTag;
     }
 }

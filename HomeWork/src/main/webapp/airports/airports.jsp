@@ -19,11 +19,7 @@
         <tbody>
             <c:forEach var="airport" items="${airports}">
                 <tr>
-                    <td><c:out value="${airport.getCode()}"/></td>
-                    <td><c:out value="${airport.getName()}"/></td>
-                    <td><c:out value="${airport.getCity()}"/></td>
-                    <td><c:out value="${airport.getCoordinates()}"/></td>
-                    <td><c:out value="${airport.getTimezone()}"/></td>
+                    <c:out value="${airport.getTableString()}" escapeXml="false"/>
                 </tr>
              </c:forEach>
         </tbody>

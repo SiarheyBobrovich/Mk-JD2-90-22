@@ -5,58 +5,56 @@
     pageEncoding="UTF-8"
 %>
 
-<table>
+<head>
+  <style type="text/css">
+    TABLE {
+        border-collapse: collapse; /* Убираем двойные линии между ячейками */
+        font-size: 14px;
+    }
+    TD, TH {
+        padding: 3px; /* Поля вокруг содержимого таблицы */
+        border: 1px solid black; /* Параметры рамки */
+    }
+  </style>
+ </head>
+
+<body>
+    <table>
         <thead>
             <tr>
-                <th>flight_id</th>
-                <th>flight_no</th>
-                <th>scheduled_departure</th>
-                <th>scheduled_departure_local</th>
-                <th>scheduled_arrival</th>
-                <th>scheduled_arrival_local</th>
-                <th>scheduled_duration</th>
-                <th>departure_airport</th>
-                <th>departure_airport_name</th>
-                <th>departure_city</th>
-                <th>arrival_airport</th>
-                <th>arrival_airport_name</th>
-                <th>arrival_city</th>
+                <th>flight id</th>
+                <th>flight no</th>
+                <th>scheduled departure</th>
+                <th>scheduled departure_local</th>
+                <th>scheduled arrival</th>
+                <th>scheduled arrival local</th>
+                <th>scheduled duration</th>
+                <th>departure airport</th>
+                <th>departure airport name</th>
+                <th>departure city</th>
+                <th>arrival airport</th>
+                <th>arrival airport name</th>
+                <th>arrival city</th>
                 <th>status</th>
-                <th>aircraft_code</th>
-                <th>actual_departure</th>
-                <th>actual_departure_local</th>
-                <th>actual_arrival</th>
-                <th>actual_arrival_local</th>
-                <th>actual_duration</th>
+                <th>aircraft code</th>
+                <th>actual departure</th>
+                <th>actual departure local</th>
+                <th>actual arrival</th>
+                <th>actual arrival local</th>
+                <th>actual duration</th>
             </tr>
         </thead>
 
-
-
         <tbody>
-
             <c:forEach var="flight" items="${flights}">
                 <tr>
-                    <td><c:out value="${flight.getFlight_id()}"/></td>
-                    <td><c:out value="${flight.getFlight_no()}"/></td>
-                    <td><c:out value="${flight.getScheduled_departure()}"/></td>
-                    <td><c:out value="${flight.getScheduled_departure_local()}"/></td>
-                    <td><c:out value="${flight.getScheduled_arrival()}"/></td>
-                    <td><c:out value="${flight.getScheduled_arrival_local()}"/></td>
-                    <td><c:out value="${flight.getScheduled_duration()}"/></td>
-                    <td><c:out value="${flight.getDeparture_airport()}"/></td>
-                    <td><c:out value="${flight.getDeparture_airport_name()}"/></td>
-                    <td><c:out value="${flight.getDeparture_city()}"/></td>
-                    <td><c:out value="${flight.getArrival_airport()}"/></td>
-                    <td><c:out value="${flight.getArrival_airport_name()}"/></td>
-                    <td><c:out value="${flight.getArrival_city()}"/></td>
-                    <td><c:out value="${flight.getAircraft_code()}"/></td>
-                    <td><c:out value="${flight.getActual_departure()}"/></td>
-                    <td><c:out value="${flight.getActual_departure_local()}"/></td>
-                    <td><c:out value="${flight.getActual_arrival()}"/></td>
-                    <td><c:out value="${flight.getActual_arrival_local()}"/></td>
-                    <td><c:out value="${flight.getActual_duration()}"/></td>
+                    <c:out value="${flight.getTableString()}" escapeXml="false"/>
                 </tr>
              </c:forEach>
         </tbody>
     </table>
+
+    <form action=<%= request.getContextPath() + "/flights"%> method="POST">
+        <p><input type="button" value="next"></p>
+    </form>
+</body>

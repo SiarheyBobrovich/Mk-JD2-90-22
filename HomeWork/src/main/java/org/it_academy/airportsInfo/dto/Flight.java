@@ -1,6 +1,8 @@
 package org.it_academy.airportsInfo.dto;
 
-public class Flight {
+import org.it_academy.airportsInfo.dto.api.BaseAirportObject;
+
+public class Flight implements BaseAirportObject {
 
     private final String flight_id;
     private final String flight_no;
@@ -143,5 +145,32 @@ public class Flight {
 
     public String getActual_duration() {
         return actual_duration;
+    }
+
+    @Override
+    public String getTableString() {
+        String startTableTag = "<td>";
+        String endTableTag = "</td>";
+
+        return startTableTag + flight_id + endTableTag +
+                startTableTag + flight_no + endTableTag +
+                startTableTag + scheduled_departure + endTableTag +
+                startTableTag + scheduled_departure_local + endTableTag +
+                startTableTag + scheduled_arrival + endTableTag +
+                startTableTag + scheduled_arrival_local + endTableTag +
+                startTableTag + scheduled_duration + endTableTag +
+                startTableTag + departure_airport + endTableTag +
+                startTableTag + departure_airport_name + endTableTag +
+                startTableTag + departure_city + endTableTag +
+                startTableTag + arrival_airport + endTableTag +
+                startTableTag + arrival_airport_name + endTableTag +
+                startTableTag + arrival_city + endTableTag +
+                startTableTag + status + endTableTag +
+                startTableTag + aircraft_code + endTableTag +
+                startTableTag + actual_departure + endTableTag +
+                startTableTag + actual_departure_local + endTableTag +
+                startTableTag + actual_arrival + endTableTag +
+                startTableTag + actual_arrival_local + endTableTag +
+                startTableTag + actual_duration + endTableTag;
     }
 }

@@ -23,6 +23,7 @@
                 <tr>
                     <td>
                         <select name="departureAirport">
+                            <option value="" selected></option>
                             <c:forEach var="airport" items="${airports}">
                                 <option value="${airport.getName()}"> ${airport.getName()} </option>
                             </c:forEach>
@@ -31,6 +32,7 @@
                     <td><input name ="departureDate" type="date"/></td>
                     <td>
                         <select name="arrivalAirport">
+                            <option value="" selected></option>
                             <c:forEach var="airport" items="${airports}">
                                <option value="${airport.getName()}"> ${airport.getName()} </option>
                            </c:forEach>

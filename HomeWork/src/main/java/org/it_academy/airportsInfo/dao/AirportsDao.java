@@ -1,45 +1,38 @@
 package org.it_academy.airportsInfo.dao;
 
-import org.it_academy.airportsInfo.dao.api.IAirportDao;
+import org.it_academy.airportsInfo.dao.api.AbstractAirportDao;
 import org.it_academy.airportsInfo.dto.Airport;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirportsDao implements IAirportDao {
-    private static final String ALL_AIRPORTS_SELECTOR =
-            "SELECT\n" +
-                "airport_code,\n" +
-                "airport_name,\n" +
-                "city,\n" +
-                "coordinates,\n" +
-                "timezone\n" +
-            "FROM\n" +
-                "bookings.airports\n" +
-            "ORDER BY\n" +
-                "city;";
+public class AirportsDao extends AbstractAirportDao<Airport> {
+
+    public AirportsDao() {
+        super();
+    }
 
     @Override
     public List<Airport> getFromDB() {
 
         List<Airport> airports = new ArrayList<>();
 
-        try(Connection connection = getConnection();
-        Statement statement = connection.createStatement()) {
+        try(Connection connection = getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(ALL_AIRPORTS_SELECTOR)) {
 
-            ResultSet resultSet = statement.executeQuery(ALL_AIRPORTS_SELECTOR);
+            try(ResultSet resultSet = preparedStatement.executeQuery()) {
 
-            while (resultSet.next()) {
-                airports.add(map(resultSet));
+                while (resultSet.next()) {
+                    airports.add(map(resultSet));
+                }
             }
-
+            close();
             return airports;
 
         }catch (SQLException e) {
+            close();
             throw new RuntimeException("Не удалось подключиться к базе", e);
-        }catch (ClassNotFoundException e) {
-            throw new RuntimeException("Проверьте драйвер", e);
         }
     }
 
