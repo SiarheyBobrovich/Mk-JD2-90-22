@@ -1,43 +1,40 @@
 package org.it_academy.airportsInfo.service;
 
 import org.it_academy.airportsInfo.dao.FlightsDao;
-import org.it_academy.airportsInfo.dto.Airport;
-import org.it_academy.airportsInfo.service.api.IAirportService;
+import org.it_academy.airportsInfo.dto.Flight;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Formatter;
 import java.util.List;
 
-public class FlightsService implements IAirportService {
+public class FlightsService {
+    private FlightsDao fd = new FlightsDao();
 
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public List<Flight> get(String departureAirport,
+                            String arrivalAirport,
+                            String departureDate,
+                            String arrivalDate,
+                            String offset) {
 
-    private final FlightsDao fd;
-    private final String fromAirport;
-    private final String toAirport;
-    private final LocalDateTime fromDate;
-    private final LocalDateTime toDate;
-
-    public FlightsService(String fromAirport, String toAirport, String fromDate, String toDate) {
         this.fd = new FlightsDao();
-        this.fromAirport = fromAirport;
-        this.toAirport = toAirport;
-        this.fromDate = getDate(fromDate);
-        this.toDate = getDate(toDate);
-    }
+        fd.setDepartureAirport(departureAirport);
+        fd.setArrivalAirport(arrivalAirport);
+        fd.setOffset(Integer.parseInt(offset));
 
-    @Override
-    public List<Airport> get() {
-        return null;
-    }
-
-    private LocalDateTime getDate(String date) {
-        try {
-            return LocalDateTime.parse(date, formatter);
-        }catch (DateTimeParseException e) {
-            throw new IllegalArgumentException("Invalid time format");
+        if (departureDate.length() != 0 ) {
+            fd.setDepartureDate(getDate(departureDate));
         }
+        if (arrivalDate.length() != 0 ) {
+            fd.setArrivalDate(getDate(arrivalDate));
+        }
+
+        return fd.getFromDB();
+    }
+
+    private LocalDateTime getDate(String date) throws DateTimeParseException {
+        LocalDate dateTime = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        return dateTime.atStartOfDay();
     }
 }

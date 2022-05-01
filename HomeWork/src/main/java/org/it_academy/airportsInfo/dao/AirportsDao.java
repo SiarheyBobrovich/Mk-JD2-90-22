@@ -36,8 +36,10 @@ public class AirportsDao implements IAirportDao {
 
             return airports;
 
-        }catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        }catch (SQLException e) {
+            throw new RuntimeException("Не удалось подключиться к базе", e);
+        }catch (ClassNotFoundException e) {
+            throw new RuntimeException("Проверьте драйвер", e);
         }
     }
 
