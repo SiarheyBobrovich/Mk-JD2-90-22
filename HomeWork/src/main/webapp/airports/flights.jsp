@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"
 %>
 
-<form action=<%= request.getContextPath() + "/flights"%> method="POST">
+<form action=<%= request.getContextPath() + "/flights?offset=0"%> method="POST">
 
     <table>
         <thead>
@@ -14,10 +14,8 @@
                 <th>departureDate</th>
                 <th>arrivalAirport</th>
                 <th>arrivalDate</th>
-                <th>offset</th>
             </tr>
         </thead>
-
 
             <tbody>
                 <tr>
@@ -39,7 +37,6 @@
                         </select>
                     </td>
                     <td><input name ="arrivalDate" type="date"/></td>
-                    <td><input name ="offset"/></td>
                 </tr>
             </tbody>
     </table>

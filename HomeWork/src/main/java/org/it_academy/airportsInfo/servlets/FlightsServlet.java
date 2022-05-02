@@ -8,9 +8,7 @@ import org.it_academy.airportsInfo.service.api.IAirportService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.stream.Collectors;
@@ -18,7 +16,8 @@ import java.util.stream.Collectors;
 @WebServlet(name = "FlightsServlet", urlPatterns = "/flights")
 
 public class FlightsServlet extends HttpServlet {
-    private final IAirportService<Airport> aiAirport = new AirportsService();
+    private IAirportService<Airport> aiAirport;
+    private IAirportService<Flight> aiFlight;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,12 +29,13 @@ public class FlightsServlet extends HttpServlet {
         String arrivalDate = req.getParameter("arrivalDate");
         String offset = req.getParameter("offset");
 
-        IAirportService<Flight> aiFlight = new FlightsService(
+
+         aiFlight = new FlightsService(
                 departureAirport,
                 arrivalAirport,
                 departureDate,
                 arrivalDate,
-                offset
+                offset.length() == 0 ? "0" : offset
         );
 
         try {
@@ -48,6 +48,7 @@ public class FlightsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        aiAirport = new AirportsService();
         req.setAttribute("airports",
                 this.aiAirport.get().stream().
                         sorted(Comparator.comparing(Airport::getName))

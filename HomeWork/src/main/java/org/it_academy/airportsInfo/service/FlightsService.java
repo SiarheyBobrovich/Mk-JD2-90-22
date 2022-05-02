@@ -19,7 +19,7 @@ public class FlightsService implements IAirportService<Flight>{
     private final String arrivalAirport;
     private final String departureDate;
     private final String arrivalDate;
-    private final String offset;
+    private String offset;
 
     public FlightsService(String departureAirport, String arrivalAirport, String departureDate, String arrivalDate, String offset) {
         this.departureAirport = departureAirport;
@@ -41,6 +41,11 @@ public class FlightsService implements IAirportService<Flight>{
             fd.setArrivalAirport(arrivalAirport);
         }
 
+
+        if (check(offset)) {
+            fd.setOffset(Integer.parseInt(offset));
+        }
+
         try {
             if (check(departureDate)) {
                 fd.setDepartureDate(getDate(departureDate));
@@ -53,8 +58,6 @@ public class FlightsService implements IAirportService<Flight>{
             fd.close();
             throw new IllegalArgumentException("Не верно введена дата");
         }
-
-        fd.setOffset(Integer.parseInt(offset));
 
         return fd.getFromDB();
     }

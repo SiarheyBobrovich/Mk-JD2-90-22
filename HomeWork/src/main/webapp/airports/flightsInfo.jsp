@@ -53,8 +53,15 @@
              </c:forEach>
         </tbody>
     </table>
-
-    <form action=<%= request.getContextPath() + "/flights"%> method="POST">
-        <p><input type="button" value="next"></p>
-    </form>
+    <c:if test="${flights.size() == 25}">
+        <form action=<%=request.getContextPath() +
+            "/flights?departureAirport=" + request.getParameter("departureAirport") +
+            "&arrivalAirport=" + request.getParameter("arrivalAirport") +
+            "&departureDate=" + request.getParameter("departureDate") +
+            "&arrivalDate=" + request.getParameter("arrivalDate") +
+            "&offset=" + (request.getParameter("offset").length() == 0 ? "25" : Integer.parseInt(request.getParameter("offset")) + 25)
+        %> method="POST">
+            <p><input type="submit" value="next"></p>
+        </form>
+    </c:if>
 </body>

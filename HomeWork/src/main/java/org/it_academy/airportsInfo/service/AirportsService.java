@@ -18,7 +18,7 @@ public class AirportsService implements IAirportService<Airport> {
     @Override
     public List<Airport> get() {
         List<Airport> fromDB = this.ad.getFromDB();
-        ad.close();
         return fromDB;
     }
+
 }

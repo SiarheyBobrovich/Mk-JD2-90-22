@@ -59,7 +59,6 @@ public class FlightsDao extends AbstractAirportDao<Flight> {
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 map = map(resultSet);
             }
-
             close();
             return map;
 
