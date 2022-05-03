@@ -4,147 +4,148 @@ import org.it_academy.airportsInfo.dto.api.BaseAirportObject;
 
 public class Flight implements BaseAirportObject {
 
-    private final String flight_id;
-    private final String flight_no;
-    private final String scheduled_departure;
-    private final String scheduled_departure_local;
-    private final String scheduled_arrival;
-    private final String scheduled_arrival_local;
-    private final String scheduled_duration;
-    private final String departure_airport;
-    private final String departure_airport_name;
-    private final String departure_city;
-    private final String arrival_airport;
-    private final String arrival_airport_name;
-    private final String arrival_city, status;
-    private final String aircraft_code;
-    private final String actual_departure;
-    private final String actual_departure_local;
-    private final String actual_arrival;
-    private final String actual_arrival_local;
-    private final String actual_duration;
+    private final String flightId;
+    private final String flightNo;
+    private final String scheduledDeparture;
+    private final String scheduledDepartureLocal;
+    private final String scheduledArrival;
+    private final String scheduledArrivalLocal;
+    private final String scheduledDuration;
+    private final String departureAirport;
+    private final String departureAirportName;
+    private final String departureCity;
+    private final String arrivalAirport;
+    private final String arrivalAirportName;
+    private final String arrivalCity;
+    private final String  status;
+    private final String aircraftCode;
+    private final String actualDeparture;
+    private final String actualDepartureLocal;
+    private final String actualArrival;
+    private final String actualArrivalLocal;
+    private final String actualDuration;
 
-    public Flight(String flight_id,
-                  String flight_no,
-                  String scheduled_departure,
-                  String scheduled_departure_local,
-                  String scheduled_arrival,
-                  String scheduled_arrival_local,
-                  String scheduled_duration,
-                  String departure_airport,
-                  String departure_airport_name,
-                  String departure_city,
-                  String arrival_airport,
-                  String arrival_airport_name,
-                  String arrival_city,
+    public Flight(String flightId,
+                  String flightNo,
+                  String scheduledDeparture,
+                  String scheduledDepartureLocal,
+                  String scheduledArrival,
+                  String scheduledArrivalLocal,
+                  String scheduledDuration,
+                  String departureAirport,
+                  String departureAirportName,
+                  String departureCity,
+                  String arrivalAirport,
+                  String arrivalAirportName,
+                  String arrivalCity,
                   String status,
-                  String aircraft_code,
-                  String actual_departure,
-                  String actual_departure_local,
-                  String actual_arrival,
-                  String actual_arrival_local,
-                  String actual_duration
+                  String aircraftCode,
+                  String actualDeparture,
+                  String actualDepartureLocal,
+                  String actualArrival,
+                  String actualArrivalLocal,
+                  String actualDuration
     ) {
-        this.flight_id = flight_id;
-        this.flight_no = flight_no;
-        this.scheduled_departure = scheduled_departure;
-        this.scheduled_departure_local = scheduled_departure_local;
-        this.scheduled_arrival = scheduled_arrival;
-        this.scheduled_arrival_local = scheduled_arrival_local;
-        this.scheduled_duration = scheduled_duration;
-        this.departure_airport = departure_airport;
-        this.departure_airport_name = departure_airport_name;
-        this.departure_city = departure_city;
-        this.arrival_airport = arrival_airport;
-        this.arrival_airport_name = arrival_airport_name;
-        this.arrival_city = arrival_city;
+        this.flightId = flightId;
+        this.flightNo = flightNo;
+        this.scheduledDeparture = scheduledDeparture;
+        this.scheduledDepartureLocal = scheduledDepartureLocal;
+        this.scheduledArrival = scheduledArrival;
+        this.scheduledArrivalLocal = scheduledArrivalLocal;
+        this.scheduledDuration = scheduledDuration;
+        this.departureAirport = departureAirport;
+        this.departureAirportName = departureAirportName;
+        this.departureCity = departureCity;
+        this.arrivalAirport = arrivalAirport;
+        this.arrivalAirportName = arrivalAirportName;
+        this.arrivalCity = arrivalCity;
         this.status = status;
-        this.aircraft_code = aircraft_code;
-        this.actual_departure = actual_departure;
-        this.actual_departure_local = actual_departure_local;
-        this.actual_arrival = actual_arrival;
-        this.actual_arrival_local = actual_arrival_local;
-        this.actual_duration = actual_duration;
+        this.aircraftCode = aircraftCode;
+        this.actualDeparture = actualDeparture;
+        this.actualDepartureLocal = actualDepartureLocal;
+        this.actualArrival = actualArrival;
+        this.actualArrivalLocal = actualArrivalLocal;
+        this.actualDuration = actualDuration;
     }
 
-    public String getFlight_id() {
-        return flight_id;
+    public String getFlightId() {
+        return flightId;
     }
 
-    public String getFlight_no() {
-        return flight_no;
+    public String getFlightNo() {
+        return flightNo;
     }
 
-    public String getScheduled_departure() {
-        return scheduled_departure;
+    public String getScheduledDeparture() {
+        return scheduledDeparture;
     }
 
-    public String getScheduled_departure_local() {
-        return scheduled_departure_local;
+    public String getScheduledDepartureLocal() {
+        return scheduledDepartureLocal;
     }
 
-    public String getScheduled_arrival() {
-        return scheduled_arrival;
+    public String getScheduledArrival() {
+        return scheduledArrival;
     }
 
-    public String getScheduled_arrival_local() {
-        return scheduled_arrival_local;
+    public String getScheduledArrivalLocal() {
+        return scheduledArrivalLocal;
     }
 
-    public String getScheduled_duration() {
-        return scheduled_duration;
+    public String getScheduledDuration() {
+        return scheduledDuration;
     }
 
-    public String getDeparture_airport() {
-        return departure_airport;
+    public String getDepartureAirport() {
+        return departureAirport;
     }
 
-    public String getDeparture_airport_name() {
-        return departure_airport_name;
+    public String getDepartureAirportName() {
+        return departureAirportName;
     }
 
-    public String getDeparture_city() {
-        return departure_city;
+    public String getDepartureCity() {
+        return departureCity;
     }
 
-    public String getArrival_airport() {
-        return arrival_airport;
+    public String getArrivalAirport() {
+        return arrivalAirport;
     }
 
-    public String getArrival_airport_name() {
-        return arrival_airport_name;
+    public String getArrivalAirportName() {
+        return arrivalAirportName;
     }
 
-    public String getArrival_city() {
-        return arrival_city;
+    public String getArrivalCity() {
+        return arrivalCity;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public String getAircraft_code() {
-        return aircraft_code;
+    public String getAircraftCode() {
+        return aircraftCode;
     }
 
-    public String getActual_departure() {
-        return actual_departure;
+    public String getActualDeparture() {
+        return actualDeparture;
     }
 
-    public String getActual_departure_local() {
-        return actual_departure_local;
+    public String getActualDepartureLocal() {
+        return actualDepartureLocal;
     }
 
-    public String getActual_arrival() {
-        return actual_arrival;
+    public String getActualArrival() {
+        return actualArrival;
     }
 
-    public String getActual_arrival_local() {
-        return actual_arrival_local;
+    public String getActualArrivalLocal() {
+        return actualArrivalLocal;
     }
 
-    public String getActual_duration() {
-        return actual_duration;
+    public String getActualDuration() {
+        return actualDuration;
     }
 
     @Override
@@ -152,25 +153,25 @@ public class Flight implements BaseAirportObject {
         String startTableTag = "<td>";
         String endTableTag = "</td>";
 
-        return startTableTag + flight_id + endTableTag +
-                startTableTag + flight_no + endTableTag +
-                startTableTag + scheduled_departure + endTableTag +
-                startTableTag + scheduled_departure_local + endTableTag +
-                startTableTag + scheduled_arrival + endTableTag +
-                startTableTag + scheduled_arrival_local + endTableTag +
-                startTableTag + scheduled_duration + endTableTag +
-                startTableTag + departure_airport + endTableTag +
-                startTableTag + departure_airport_name + endTableTag +
-                startTableTag + departure_city + endTableTag +
-                startTableTag + arrival_airport + endTableTag +
-                startTableTag + arrival_airport_name + endTableTag +
-                startTableTag + arrival_city + endTableTag +
-                startTableTag + status + endTableTag +
-                startTableTag + aircraft_code + endTableTag +
-                startTableTag + actual_departure + endTableTag +
-                startTableTag + actual_departure_local + endTableTag +
-                startTableTag + actual_arrival + endTableTag +
-                startTableTag + actual_arrival_local + endTableTag +
-                startTableTag + actual_duration + endTableTag;
+        return  startTableTag + (flightId != null ? flightId : "") + endTableTag +
+                startTableTag + (flightNo != null ? flightNo : "") + endTableTag +
+                startTableTag + (scheduledDeparture != null ? scheduledDeparture : "") + endTableTag +
+                startTableTag + (scheduledDepartureLocal != null ? scheduledDepartureLocal : "") + endTableTag +
+                startTableTag + (scheduledArrival != null ? scheduledArrival : "") + endTableTag +
+                startTableTag + (scheduledArrivalLocal != null ? scheduledArrivalLocal : "") + endTableTag +
+                startTableTag + (scheduledDuration != null ? scheduledDuration : "") + endTableTag +
+                startTableTag + (departureAirport != null ? departureAirport : "") + endTableTag +
+                startTableTag + (departureAirportName != null ? departureAirportName : "") + endTableTag +
+                startTableTag + (departureCity != null ? departureCity : "") + endTableTag +
+                startTableTag + (arrivalAirport != null ? arrivalAirport : "") + endTableTag +
+                startTableTag + (arrivalAirportName != null ? arrivalAirportName : "") + endTableTag +
+                startTableTag + (arrivalCity != null ? arrivalCity : "") + endTableTag +
+                startTableTag + (status != null ? status : "") + endTableTag +
+                startTableTag + (aircraftCode != null ? aircraftCode : "") + endTableTag +
+                startTableTag + (actualDeparture != null ? actualDeparture : "") + endTableTag +
+                startTableTag + (actualDepartureLocal != null ? actualDepartureLocal : "") + endTableTag +
+                startTableTag + (actualArrival != null ? actualArrival : "") + endTableTag +
+                startTableTag + (actualArrivalLocal != null ? actualArrivalLocal : "") + endTableTag +
+                startTableTag + (actualDuration != null ? actualDuration : "") + endTableTag;
     }
 }

@@ -5,40 +5,42 @@
     pageEncoding="UTF-8"
 %>
 
-<form action=<%= request.getContextPath() + "/flights?offset=0"%> method="POST">
+<body>
+    <form action=<%= request.getContextPath() + "/flights?offset=0"%> method="POST">
 
-    <table>
-        <thead>
-            <tr>
-                <th>departureAirport</th>
-                <th>departureDate</th>
-                <th>arrivalAirport</th>
-                <th>arrivalDate</th>
-            </tr>
-        </thead>
-
-            <tbody>
+        <table>
+            <thead>
                 <tr>
-                    <td>
-                        <select name="departureAirport">
-                            <option value="" selected></option>
-                            <c:forEach var="airport" items="${airports}">
-                                <option value="${airport.getName()}"> ${airport.getName()} </option>
-                            </c:forEach>
-                        </select>
-                    </td>
-                    <td><input name ="departureDate" type="date"/></td>
-                    <td>
-                        <select name="arrivalAirport">
-                            <option value="" selected></option>
-                            <c:forEach var="airport" items="${airports}">
-                               <option value="${airport.getName()}"> ${airport.getName()} </option>
-                           </c:forEach>
-                        </select>
-                    </td>
-                    <td><input name ="arrivalDate" type="date"/></td>
+                    <th>departureAirport</th>
+                    <th>departureDate</th>
+                    <th>arrivalAirport</th>
+                    <th>arrivalDate</th>
                 </tr>
-            </tbody>
-    </table>
-    <input type = "submit">
-</form>
+            </thead>
+
+                <tbody>
+                    <tr>
+                        <td>
+                            <select name="departureAirport">
+                                <option value="" selected></option>
+                                <c:forEach var="airport" items="${airports}">
+                                    <option value="${airport.getName()}"> ${airport.getName()} </option>
+                                </c:forEach>
+                            </select>
+                        </td>
+                        <td><input name ="departureDate" type="date"/></td>
+                        <td>
+                            <select name="arrivalAirport">
+                                <option value="" selected></option>
+                                <c:forEach var="airport" items="${airports}">
+                                   <option value="${airport.getName()}"> ${airport.getName()} </option>
+                               </c:forEach>
+                            </select>
+                        </td>
+                        <td><input name ="arrivalDate" type="date"/></td>
+                    </tr>
+                </tbody>
+        </table>
+        <input type = "submit">
+    </form>
+</body>

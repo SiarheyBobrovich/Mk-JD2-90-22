@@ -14,11 +14,10 @@ import java.io.IOException;
 @WebServlet(name = "AirportsServlet", urlPatterns = "/airports")
 public class AirportsServlet extends HttpServlet {
 
-    private IAirportService<Airport> as;
+    private IAirportService<Airport> as = new AirportsService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        as = new AirportsService();
         req.setAttribute("airports", as.get());
 
         req.getRequestDispatcher("/airports/airports.jsp").forward(req, resp);

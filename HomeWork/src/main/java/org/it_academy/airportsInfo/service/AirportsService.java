@@ -9,16 +9,10 @@ import java.util.List;
 
 public class AirportsService implements IAirportService<Airport> {
 
-    private final IAirportDao<Airport> ad;
-
-    public AirportsService() {
-        this.ad = new AirportsDao();
-    }
-
     @Override
     public List<Airport> get() {
-        List<Airport> fromDB = this.ad.getFromDB();
-        return fromDB;
+        try(IAirportDao<Airport> ai = new AirportsDao()) {
+            return ai.getFromDB();
+        }
     }
-
 }
