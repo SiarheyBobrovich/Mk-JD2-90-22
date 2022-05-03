@@ -39,7 +39,7 @@ public class FlightsService2 implements IAirportService<Flight>{
 
     public FlightsService2(List<String> params) {
         List<String> s = params.stream()
-                .map(x -> x.isEmpty() ? null : x)
+                .map(x -> Objects.isNull(x) || x.isEmpty() ? null : x)
                 .collect(Collectors.toList());
 
 

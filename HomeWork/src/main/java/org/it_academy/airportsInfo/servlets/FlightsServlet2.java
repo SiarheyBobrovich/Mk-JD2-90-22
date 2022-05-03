@@ -34,13 +34,20 @@ public class FlightsServlet2 extends HttpServlet {
         params.add(req.getParameter("departureDate"));
         params.add(req.getParameter("arrivalDate"));
         String offset = req.getParameter("offset");
-        params.add(offset == null ? "0" : offset);
+        params.add(offset == null ? "0" : String.valueOf(Integer.parseInt(offset) + 25));
 
         aiFlight = new FlightsService2(params);
 
         try {
-            req.setAttribute("flights", aiFlight.get());
-            req.getRequestDispatcher("/airports/flightsInf.jsp").forward(req, resp);
+            List<Flight> flights = aiFlight.get();
+            req.setAttribute("flights", flights);
+            req.getRequestDispatcher("/airports/flightsInf.jsp?" +
+                    "departureAirport=" + params.get(0) +
+                    "&arrivalAirport=" + params.get(1) +
+                    "&departureDate=" + params.get(2) +
+                    "&arrivalDate=" + params.get(3) +
+                    "&offset=" + params.get(4)
+            ).forward(req, resp);
         } catch (IllegalArgumentException e) {
             resp.sendRedirect(req.getContextPath() + "/flights2?error" + e.getMessage());
         }

@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"
 %>
 
-<form action=<%= request.getContextPath() + "/flight?offset=0"%> method="POST">
+<form action=<%= request.getContextPath() + "/flight"%> method="POST">
 
     <table>
         <thead>
