@@ -9,6 +9,19 @@ import java.util.List;
 
 public class AirportsDao extends AbstractAirportDao<Airport> {
 
+    private final String allAirportsSelector =
+            "SELECT\n" +
+                    "airport_code,\n" +
+                    "airport_name,\n" +
+                    "city,\n" +
+                    "coordinates,\n" +
+                    "timezone\n" +
+                    "FROM\n" +
+                    "bookings.airports\n" +
+                    "ORDER BY\n" +
+                    "city;";
+
+
     public AirportsDao() {
         super();
     }
@@ -19,7 +32,7 @@ public class AirportsDao extends AbstractAirportDao<Airport> {
         List<Airport> airports = new ArrayList<>();
 
         try(Connection connection = getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(ALL_AIRPORTS_SELECTOR)) {
+            PreparedStatement preparedStatement = connection.prepareStatement(allAirportsSelector)) {
 
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
 

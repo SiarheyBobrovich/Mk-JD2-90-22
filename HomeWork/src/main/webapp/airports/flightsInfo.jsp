@@ -18,50 +18,43 @@
   </style>
  </head>
 
-<body>
-    <table>
-        <thead>
-            <tr>
-                <th>flight id</th>
-                <th>flight no</th>
-                <th>scheduled departure</th>
-                <th>scheduled departure_local</th>
-                <th>scheduled arrival</th>
-                <th>scheduled arrival local</th>
-                <th>scheduled duration</th>
-                <th>departure airport</th>
-                <th>departure airport name</th>
-                <th>departure city</th>
-                <th>arrival airport</th>
-                <th>arrival airport name</th>
-                <th>arrival city</th>
-                <th>status</th>
-                <th>aircraft code</th>
-                <th>actual departure</th>
-                <th>actual departure local</th>
-                <th>actual arrival</th>
-                <th>actual arrival local</th>
-                <th>actual duration</th>
-            </tr>
-        </thead>
+<table>
+    <thead>
+        <tr>
+            <th>flight id</th>
+            <th>flight no</th>
+            <th>scheduled departure</th>
+            <th>scheduled departure_local</th>
+            <th>scheduled arrival</th>
+            <th>scheduled arrival local</th>
+            <th>scheduled duration</th>
+            <th>departure airport</th>
+            <th>departure airport name</th>
+            <th>departure city</th>
+            <th>arrival airport</th>
+            <th>arrival airport name</th>
+            <th>arrival city</th>
+            <th>status</th>
+            <th>aircraft code</th>
+            <th>actual departure</th>
+            <th>actual departure local</th>
+            <th>actual arrival</th>
+            <th>actual arrival local</th>
+            <th>actual duration</th>
+        </tr>
+    </thead>
 
-        <tbody>
-            <c:forEach var="flight" items="${flights}">
-                <tr>
-                    <c:out value="${flight.getTableString()}" escapeXml="false"/>
-                </tr>
-             </c:forEach>
-        </tbody>
-    </table>
-    <c:if test="${flights.size() == 25}">
-        <form action=<%=request.getContextPath() +
-            "/flights?departureAirport=" + request.getParameter("departureAirport") +
-            "&arrivalAirport=" + request.getParameter("arrivalAirport") +
-            "&departureDate=" + request.getParameter("departureDate") +
-            "&arrivalDate=" + request.getParameter("arrivalDate") +
-            "&offset=" + (request.getParameter("offset").length() == 0 ? "25" : Integer.parseInt(request.getParameter("offset")) + 25)
-        %> method="POST">
-            <p><input type="submit" value="next"></p>
-        </form>
-    </c:if>
-</body>
+    <tbody>
+        <c:forEach var="flight" items="${flights}">
+            <tr>
+                <c:out value="${flight.getTableString()}" escapeXml="false"/>
+            </tr>
+         </c:forEach>
+    </tbody>
+</table>
+
+<c:if test="${flights.size() == 25}">
+    <form action=<%=request.getContextPath() +"/flights?" + request.getQueryString()%> method="POST">
+        <p><input type="submit" value="next"></p>
+    </form>
+</c:if>

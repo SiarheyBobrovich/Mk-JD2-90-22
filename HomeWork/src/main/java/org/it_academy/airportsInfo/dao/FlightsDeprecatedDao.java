@@ -9,7 +9,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FlightsDao extends AbstractAirportDao<Flight> {
+public class FlightsDeprecatedDao extends AbstractAirportDao<Flight> {
+
+    private final String allFlightsSelector =
+            "SELECT \n" +
+                    "\tflight_id,\n" +
+                    "\tflight_no,\n" +
+                    "\tscheduled_departure,\n" +
+                    "\tscheduled_departure_local,\n" +
+                    "\tscheduled_arrival,\n" +
+                    "\tscheduled_arrival_local,\n" +
+                    "\tscheduled_duration,\n" +
+                    "\tdeparture_airport,\n" +
+                    "\tdeparture_airport_name,\n" +
+                    "\tdeparture_city,\n" +
+                    "\tarrival_airport,\n" +
+                    "\tarrival_airport_name,\n" +
+                    "\tarrival_city, status,\n" +
+                    "\taircraft_code,\n" +
+                    "\tactual_departure,\n" +
+                    "\tactual_departure_local,\n" +
+                    "\tactual_arrival,\n" +
+                    "\tactual_arrival_local,\n" +
+                    "\tactual_duration\n" +
+                    "FROM\n" +
+                    "\tbookings.flights_v\n";
 
     private String departureAirport;
     private String arrivalAirport;
@@ -18,7 +42,7 @@ public class FlightsDao extends AbstractAirportDao<Flight> {
     private int offset;
     private int paramSize;
 
-    public FlightsDao() {
+    public FlightsDeprecatedDao() {
         super();
     }
 
@@ -64,7 +88,7 @@ public class FlightsDao extends AbstractAirportDao<Flight> {
 
         }catch (SQLException e) {
             close();
-            throw new RuntimeException("Не удалось подключиться к базе", e);
+            throw new RuntimeException("Не удалось подключиться к базе");
         }
     }
 
@@ -95,7 +119,7 @@ public class FlightsDao extends AbstractAirportDao<Flight> {
 
         return builder.append("OFFSET ?\n")
                 .append("LIMIT 25;")
-                .insert(0, ALL_FLIGHTS_SELECTOR)
+                .insert(0, allFlightsSelector)
                 .toString();
     }
 

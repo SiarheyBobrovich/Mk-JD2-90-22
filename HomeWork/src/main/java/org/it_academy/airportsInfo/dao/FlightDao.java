@@ -8,14 +8,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class FlightDao2 extends AbstractAirportDao<Flight> {
+public class FlightDao extends AbstractAirportDao<Flight> {
 
     private String selector;
     private List<String> params = new ArrayList();
 
     private int numberOfParam;
 
-    public FlightDao2(String selector) {
+    public FlightDao(String selector) {
         super();
         this.selector = selector;
     }
@@ -46,7 +46,7 @@ public class FlightDao2 extends AbstractAirportDao<Flight> {
 
         } catch (SQLException e) {
             close();
-            throw new RuntimeException("Не удалось подключиться к базе", e);
+            throw new RuntimeException("Не удалось подключиться к базе");
         }
     }
 

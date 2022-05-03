@@ -1,72 +1,90 @@
 package org.it_academy.airportsInfo.service;
 
-import org.it_academy.airportsInfo.dao.FlightsDao;
+import org.it_academy.airportsInfo.dao.FlightDao;
 import org.it_academy.airportsInfo.dao.api.IAirportDao;
 import org.it_academy.airportsInfo.dto.Flight;
 import org.it_academy.airportsInfo.service.api.IAirportService;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class FlightsService implements IAirportService<Flight>{
 
-    private final FlightsDao fd;
-    private final String departureAirport;
-    private final String arrivalAirport;
-    private final String departureDate;
-    private final String arrivalDate;
-    private String offset;
+    public final String ALL_FLIGHTS_SELECTOR =
+            "SELECT \n" +
+                    "\tflight_id,\n" +
+                    "\tflight_no,\n" +
+                    "\tscheduled_departure,\n" +
+                    "\tscheduled_departure_local,\n" +
+                    "\tscheduled_arrival,\n" +
+                    "\tscheduled_arrival_local,\n" +
+                    "\tscheduled_duration,\n" +
+                    "\tdeparture_airport,\n" +
+                    "\tdeparture_airport_name,\n" +
+                    "\tdeparture_city,\n" +
+                    "\tarrival_airport,\n" +
+                    "\tarrival_airport_name,\n" +
+                    "\tarrival_city, status,\n" +
+                    "\taircraft_code,\n" +
+                    "\tactual_departure,\n" +
+                    "\tactual_departure_local,\n" +
+                    "\tactual_arrival,\n" +
+                    "\tactual_arrival_local,\n" +
+                    "\tactual_duration\n" +
+                    "FROM\n" +
+                    "\tbookings.flights_v\n";
 
-    public FlightsService(String departureAirport, String arrivalAirport, String departureDate, String arrivalDate, String offset) {
-        this.departureAirport = departureAirport;
-        this.arrivalAirport = arrivalAirport;
-        this.departureDate = departureDate;
-        this.arrivalDate = arrivalDate;
-        this.offset = offset;
-        fd = new FlightsDao();
+    private IAirportDao<Flight> fd;
+
+    public FlightsService(List<String> params) {
+        List<String> s = params.stream()
+                .map(x -> Objects.isNull(x) || x.isEmpty() ? null : x)
+                .collect(Collectors.toList());
+
+
+        FlightDao flightDao = new FlightDao(getSelector(s));
+
+        for (String param : s) {
+            flightDao.setParam(param);
+        }
+
+        fd = flightDao;
     }
 
     @Override
     public List<Flight> get() {
-
-        if (check(departureAirport)) {
-            fd.setDepartureAirport(departureAirport);
-        }
-
-        if (check(arrivalAirport)) {
-            fd.setArrivalAirport(arrivalAirport);
-        }
-
-
-        if (check(offset)) {
-            fd.setOffset(Integer.parseInt(offset));
-        }
-
-        try {
-            if (check(departureDate)) {
-                fd.setDepartureDate(getDate(departureDate));
-            }
-
-            if (check(arrivalDate)) {
-                fd.setArrivalDate(getDate(arrivalDate));
-            }
-        }catch (DateTimeParseException e) {
-            fd.close();
-            throw new IllegalArgumentException("Не верно введена дата");
-        }
-
         return fd.getFromDB();
     }
 
-    private boolean check(String str) {
-        return !Objects.isNull(str) && str.length() > 0;
-    }
+    private String getSelector(List<String> params) {
+        StringBuilder builder = new StringBuilder();
+        String and = "AND\n";
+        String where = "WHERE\n";
 
-    private LocalDateTime getDate(String date) throws DateTimeParseException {
-        return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
+        if (!Objects.isNull(params.get(0))) {
+            builder.append(where)
+                    .append("\tdeparture_airport_name = ? ");
+        }
+
+        if (!Objects.isNull(params.get(1))) {
+            builder.append(builder.length() > 0 ? and : where)
+                    .append("\tarrival_airport_name = ? ");
+        }
+
+        if (!Objects.isNull(params.get(2))) {
+            builder.append(builder.length() > 0 ? and : where)
+                    .append("\tdate_trunc('day', actual_departure_local) = ? ");
+        }
+
+        if (!Objects.isNull(params.get(3))) {
+            builder.append(builder.length() > 0 ? and : where)
+                    .append("\tdate_trunc('day', actual_arrival_local) = ?\n");
+        }
+
+        return builder.append("OFFSET ?\n")
+                .append("LIMIT 25;")
+                .insert(0, ALL_FLIGHTS_SELECTOR)
+                .toString();
     }
 }
