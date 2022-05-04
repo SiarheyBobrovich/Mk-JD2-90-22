@@ -62,10 +62,12 @@ public class FlightDao implements IAirportDao<Flight> {
     private void addParams(PreparedStatement ps, String param) throws SQLException, DateTimeParseException {
         if (param.matches("\\d{4}-\\d{2}-\\d{2}")) {
             ps.setTimestamp(++numberOfParam, getTimestamp(param));
-        }else if (param.matches("\\d*")) {
+        }else if (param.matches("\\d+")) {
             ps.setInt(++numberOfParam, Integer.parseInt(param));
-        }else {
+        }else if (param.matches("[аА-яЯёЁ]+")) {
             ps.setString(++numberOfParam, param);
+        }else {
+            throw new IllegalArgumentException("Не верно введён параметр: " + param);
         }
     }
 
