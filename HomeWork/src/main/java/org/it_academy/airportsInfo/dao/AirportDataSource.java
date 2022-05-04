@@ -1,4 +1,4 @@
-package org.it_academy.airportsInfo.dao.api;
+package org.it_academy.airportsInfo.dao;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -12,18 +12,31 @@ public class AirportDataSource {
     private static final AirportDataSource airportDataSource = new AirportDataSource();
     private final DataSource dataSource;
 
-    protected AirportDataSource() {
+    private AirportDataSource() {
         this.dataSource = getPool();
     }
 
+    /**
+     * Singleton's getter
+     * @return - link to DataSource object
+     */
     public static AirportDataSource getInstance() {
         return airportDataSource;
     }
 
+    /**
+     * Getter for connect to JDBC
+     * @return - connecting from pool
+     * @throws SQLException - if connect has been closed
+     */
     public Connection getConnection() throws SQLException {
         return dataSource.getConnection();
     }
 
+    /**
+     * Create and connect pool to JDBC
+     * @return new data source object
+     */
     private DataSource getPool() {
         ComboPooledDataSource pool = new ComboPooledDataSource();
 

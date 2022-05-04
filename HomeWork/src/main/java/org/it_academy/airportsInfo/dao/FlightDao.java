@@ -1,6 +1,5 @@
 package org.it_academy.airportsInfo.dao;
 
-import org.it_academy.airportsInfo.dao.api.AirportDataSource;
 import org.it_academy.airportsInfo.dao.api.IAirportDao;
 import org.it_academy.airportsInfo.dto.Flight;
 
