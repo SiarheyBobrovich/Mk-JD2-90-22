@@ -1,6 +1,6 @@
-package org.it_academy.airportsInfo.dto;
+package org.it_academy.airport.info.dto;
 
-import org.it_academy.airportsInfo.dto.api.BaseAirportObject;
+import org.it_academy.airport.info.dto.api.BaseAirportObject;
 
 public class Airport implements BaseAirportObject {
 

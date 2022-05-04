@@ -1,9 +1,9 @@
-package org.it_academy.airportsInfo.service;
+package org.it_academy.airport.info.service;
 
-import org.it_academy.airportsInfo.dao.FlightDao;
-import org.it_academy.airportsInfo.dao.api.IAirportDao;
-import org.it_academy.airportsInfo.dto.Flight;
-import org.it_academy.airportsInfo.service.api.IAirportService;
+import org.it_academy.airport.info.dao.FlightDao;
+import org.it_academy.airport.info.dao.api.IAirportDao;
+import org.it_academy.airport.info.dto.Flight;
+import org.it_academy.airport.info.service.api.IAirportService;
 
 import java.util.List;
 import java.util.Objects;

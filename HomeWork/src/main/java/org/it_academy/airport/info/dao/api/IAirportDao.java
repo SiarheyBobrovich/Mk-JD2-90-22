@@ -1,6 +1,6 @@
-package org.it_academy.airportsInfo.dao.api;
+package org.it_academy.airport.info.dao.api;
 
-import org.it_academy.airportsInfo.dto.api.BaseAirportObject;
+import org.it_academy.airport.info.dto.api.BaseAirportObject;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.it_academy.airportsInfo.dto.api;
+package org.it_academy.airport.info.dto.api;
 
 public interface BaseAirportObject {
 

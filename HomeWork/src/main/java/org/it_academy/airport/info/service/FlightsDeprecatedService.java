@@ -1,8 +1,8 @@
-package org.it_academy.airportsInfo.service;
+package org.it_academy.airport.info.service;
 
-import org.it_academy.airportsInfo.dao.FlightsDeprecatedDao;
-import org.it_academy.airportsInfo.dto.Flight;
-import org.it_academy.airportsInfo.service.api.IAirportService;
+import org.it_academy.airport.info.dao.FlightsDeprecatedDao;
+import org.it_academy.airport.info.dto.Flight;
+import org.it_academy.airport.info.service.api.IAirportService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,7 +11,7 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Objects;
 
-public class FlightsDeprecatedService implements IAirportService<Flight>{
+public class FlightsDeprecatedService implements IAirportService<Flight> {
 
     private final FlightsDeprecatedDao fd;
     private final String departureAirport;

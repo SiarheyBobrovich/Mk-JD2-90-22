@@ -1,10 +1,10 @@
-package org.it_academy.airportsInfo.servlets;
+package org.it_academy.airport.info.servlets;
 
-import org.it_academy.airportsInfo.dto.Airport;
-import org.it_academy.airportsInfo.dto.Flight;
-import org.it_academy.airportsInfo.service.AirportsService;
-import org.it_academy.airportsInfo.service.FlightsService;
-import org.it_academy.airportsInfo.service.api.IAirportService;
+import org.it_academy.airport.info.dto.Airport;
+import org.it_academy.airport.info.dto.Flight;
+import org.it_academy.airport.info.service.AirportsService;
+import org.it_academy.airport.info.service.FlightsService;
+import org.it_academy.airport.info.service.api.IAirportService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
