@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 @WebServlet(name ="AuthorisationServlet", urlPatterns = "/api/login")
 public class AuthorisationServlet extends HttpServlet {
@@ -37,7 +39,7 @@ public class AuthorisationServlet extends HttpServlet {
             }
 
         }catch (IllegalArgumentException e) {
-            resp.sendRedirect(req.getContextPath() + "/ui/signIn?error=" + e.getMessage());
+            resp.sendRedirect(req.getContextPath() + "/ui/signIn?error=" + URLEncoder.encode(e.getMessage(), Charset.defaultCharset()));
             return;
         }
 

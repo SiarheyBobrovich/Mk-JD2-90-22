@@ -1,14 +1,16 @@
 package org.it_academy.airportsInfo.dao;
 
-import org.it_academy.airportsInfo.dao.api.AbstractAirportDao;
+import org.it_academy.airportsInfo.dao.api.AirportDataSource;
+import org.it_academy.airportsInfo.dao.api.IAirportDao;
 import org.it_academy.airportsInfo.dto.Flight;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
-public class FlightDao extends AbstractAirportDao<Flight> {
+public class FlightDao implements IAirportDao<Flight> {
 
     private String selector;
     private List<String> params = new ArrayList();
@@ -20,6 +22,10 @@ public class FlightDao extends AbstractAirportDao<Flight> {
         this.selector = selector;
     }
 
+    /**
+     * Setter to save to param list
+     * @param value param to save
+     */
     public void setParam(String value) {
         if (!Objects.isNull(value) && !value.isEmpty()) {
             params.add(value);
@@ -28,9 +34,8 @@ public class FlightDao extends AbstractAirportDao<Flight> {
 
     @Override
     public List<Flight> getFromDB() {
-        List<Flight> map;
 
-        try (Connection connection = getDataSource().getConnection();
+        try (Connection connection = AirportDataSource.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(selector)) {
 
             for (String value : params) {
@@ -38,19 +43,23 @@ public class FlightDao extends AbstractAirportDao<Flight> {
             }
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                map = map(resultSet);
+                return map(resultSet);
             }
 
-            close();
-            return map;
-
         } catch (SQLException e) {
-            close();
             throw new RuntimeException("Не удалось подключиться к базе");
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Не верен формат даты");
         }
     }
 
-    private void addParams(PreparedStatement ps, String param) throws SQLException {
+    /**
+     * Method to add parameter to parametrised query
+     * @param ps - PreparedStatement where will be added
+     * @param param - parameter to add instead of "?"
+     * @throws SQLException - More or less parameters than query have
+     */
+    private void addParams(PreparedStatement ps, String param) throws SQLException, DateTimeParseException {
         if (param.matches("\\d{4}-\\d{2}-\\d{2}")) {
             ps.setTimestamp(++numberOfParam, getTimestamp(param));
         }else if (param.matches("\\d*")) {
@@ -60,13 +69,26 @@ public class FlightDao extends AbstractAirportDao<Flight> {
         }
     }
 
-    private Timestamp getTimestamp(String text) {
+    /**
+     * Method to get timestamp object from string by DateTimeFormatter("yyyy-MM-dd)
+     * @param str - string which has date
+     * @return new Timestamp object
+     * @throws DateTimeParseException when string cannot not be parsed
+     */
+    private Timestamp getTimestamp(String str) throws DateTimeParseException {
         return Timestamp.valueOf(
-                LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                LocalDate.parse(str, DateTimeFormatter.ofPattern("yyyy-MM-dd"))
                         .atStartOfDay()
         );
     }
 
+
+    /**
+     * Method for saving the Flight objects taken from the DB
+     * @param rs - ResultSet from JDBC
+     * @return new List of Flights objects
+     * @throws SQLException when connection has been closed
+     */
     private List<Flight> map(ResultSet rs) throws SQLException {
         List<Flight> resultList = new ArrayList<>();
 

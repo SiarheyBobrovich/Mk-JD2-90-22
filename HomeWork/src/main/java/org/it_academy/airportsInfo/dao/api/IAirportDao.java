@@ -4,13 +4,7 @@ import org.it_academy.airportsInfo.dto.api.BaseAirportObject;
 
 import java.util.List;
 
-public interface IAirportDao<A extends BaseAirportObject> extends AutoCloseable {
-
-    /**
-     * Close connection
-     */
-    @Override
-    void close();
+public interface IAirportDao<A extends BaseAirportObject> {
 
     /**
      * Get result from Data Base

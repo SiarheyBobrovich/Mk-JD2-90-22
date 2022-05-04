@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 @WebServlet(name ="RegistrationServlet", urlPatterns = "/api/user")
 public class RegistrationServlet extends HttpServlet {
@@ -33,7 +35,7 @@ public class RegistrationServlet extends HttpServlet {
             UserStorage.getInstance().save(login, pass, firstName, lastName, thirdName, birthday);
 
         }catch (IllegalArgumentException e) {
-            resp.sendRedirect(req.getContextPath() + "/ui/signUp.jsp?error="+ e.getMessage());
+            resp.sendRedirect(req.getContextPath() + "/ui/signUp.jsp?error="+ URLEncoder.encode(e.getMessage(), Charset.defaultCharset()));
             return;
         }
         resp.sendRedirect(req.getContextPath() + "/ui" + "?message=You've successfully registered.");

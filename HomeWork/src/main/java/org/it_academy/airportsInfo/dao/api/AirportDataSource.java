@@ -1,26 +1,27 @@
 package org.it_academy.airportsInfo.dao.api;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.it_academy.airportsInfo.dto.api.BaseAirportObject;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-public abstract class AbstractAirportDao<T extends BaseAirportObject> implements IAirportDao<T> {
+public class AirportDataSource {
 
+    private static final AirportDataSource airportDataSource = new AirportDataSource();
     private final DataSource dataSource;
 
-    protected AbstractAirportDao() {
+    protected AirportDataSource() {
         this.dataSource = getPool();
     }
 
-    public DataSource getDataSource() {
-        return dataSource;
+    public static AirportDataSource getInstance() {
+        return airportDataSource;
     }
 
-    @Override
-    public void close(){
-        ((ComboPooledDataSource) dataSource).close();
+    public Connection getConnection() throws SQLException {
+        return dataSource.getConnection();
     }
 
     private DataSource getPool() {

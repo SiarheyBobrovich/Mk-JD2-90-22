@@ -41,7 +41,7 @@ public class FlightsDeprecatedServlet extends HttpServlet {
             req.setAttribute("flights", aiFlight.get());
             req.getRequestDispatcher("/airports/flightsInfo(Deprecated).jsp").forward(req, resp);
         } catch (IllegalArgumentException e) {
-            resp.sendRedirect(req.getContextPath() + "/flight?error" + e.getMessage());
+            resp.sendRedirect(req.getContextPath() + "/flights?error" + e.getMessage());
         }
     }
 

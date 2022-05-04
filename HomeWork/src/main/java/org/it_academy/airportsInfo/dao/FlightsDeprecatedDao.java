@@ -1,6 +1,7 @@
 package org.it_academy.airportsInfo.dao;
 
-import org.it_academy.airportsInfo.dao.api.AbstractAirportDao;
+import org.it_academy.airportsInfo.dao.api.AirportDataSource;
+import org.it_academy.airportsInfo.dao.api.IAirportDao;
 import org.it_academy.airportsInfo.dto.Flight;
 
 import java.sql.*;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class FlightsDeprecatedDao extends AbstractAirportDao<Flight> {
+public class FlightsDeprecatedDao implements IAirportDao<Flight> {
 
     private final String allFlightsSelector =
             "SELECT \n" +
@@ -75,7 +76,7 @@ public class FlightsDeprecatedDao extends AbstractAirportDao<Flight> {
     public List<Flight> getFromDB() {
         List<Flight> map;
 
-        try (Connection connection = getDataSource().getConnection();
+        try (Connection connection = AirportDataSource.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(getSelector())
         ) {
             addWhereParams(preparedStatement);
@@ -83,11 +84,9 @@ public class FlightsDeprecatedDao extends AbstractAirportDao<Flight> {
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 map = map(resultSet);
             }
-            close();
             return map;
 
         }catch (SQLException e) {
-            close();
             throw new RuntimeException("Не удалось подключиться к базе");
         }
     }

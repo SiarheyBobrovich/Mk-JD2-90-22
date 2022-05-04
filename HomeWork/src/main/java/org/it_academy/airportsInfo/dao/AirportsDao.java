@@ -1,14 +1,18 @@
 package org.it_academy.airportsInfo.dao;
 
-import org.it_academy.airportsInfo.dao.api.AbstractAirportDao;
+import org.it_academy.airportsInfo.dao.api.AirportDataSource;
+import org.it_academy.airportsInfo.dao.api.IAirportDao;
 import org.it_academy.airportsInfo.dto.Airport;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AirportsDao extends AbstractAirportDao<Airport> {
+public class AirportsDao implements IAirportDao<Airport> {
 
+    /**
+     * all airports query
+     */
     private final String allAirportsSelector =
             "SELECT\n" +
                     "airport_code,\n" +
@@ -21,41 +25,43 @@ public class AirportsDao extends AbstractAirportDao<Airport> {
                     "ORDER BY\n" +
                     "city;";
 
-
-    public AirportsDao() {
-        super();
-    }
-
     @Override
     public List<Airport> getFromDB() {
 
-        List<Airport> airports = new ArrayList<>();
-
-        try(Connection connection = getDataSource().getConnection();
+        try(Connection connection = AirportDataSource.getInstance().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(allAirportsSelector)) {
 
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
 
-                while (resultSet.next()) {
-                    airports.add(map(resultSet));
-                }
+                return (map(resultSet));
             }
-            close();
-            return airports;
 
         }catch (SQLException e) {
-            close();
             throw new RuntimeException("Не удалось подключиться к базе", e);
         }
     }
 
-    private Airport map(ResultSet rs) throws SQLException {
-        return new Airport(
-                rs.getString("airport_code"),
-                rs.getString("airport_name"),
-                rs.getString("city"),
-                rs.getString("coordinates"),
-                rs.getString("timezone")
-        );
+    /**
+     * Method for saving the Airport objects taken from the DB
+     * @param rs - ResultSet from JDBC
+     * @return new List of Airport objects
+     * @throws SQLException when connection has been closed
+     */
+    private List<Airport> map(ResultSet rs) throws SQLException {
+        List<Airport> airports = new ArrayList<>();
+
+        while (rs.next()) {
+            airports.add(
+                    new Airport(
+                        rs.getString("airport_code"),
+                        rs.getString("airport_name"),
+                        rs.getString("city"),
+                        rs.getString("coordinates"),
+                        rs.getString("timezone")
+                    )
+            );
+        }
+
+        return airports;
     }
 }

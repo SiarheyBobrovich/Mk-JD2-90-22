@@ -54,7 +54,6 @@ public class FlightsDeprecatedService implements IAirportService<Flight>{
                 fd.setArrivalDate(getDate(arrivalDate));
             }
         }catch (DateTimeParseException e) {
-            fd.close();
             throw new IllegalArgumentException("Не верно введена дата");
         }
 

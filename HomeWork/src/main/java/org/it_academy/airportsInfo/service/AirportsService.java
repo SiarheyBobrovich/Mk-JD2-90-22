@@ -11,8 +11,8 @@ public class AirportsService implements IAirportService<Airport> {
 
     @Override
     public List<Airport> get() {
-        try(IAirportDao<Airport> ai = new AirportsDao()) {
-            return ai.getFromDB();
-        }
+        IAirportDao<Airport> ai = new AirportsDao();
+
+        return ai.getFromDB();
     }
 }

@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
 
 public class FlightsService implements IAirportService<Flight>{
 
+    /**
+     * All flights query
+     */
     public final String ALL_FLIGHTS_SELECTOR =
             "SELECT \n" +
                     "\tflight_id,\n" +
@@ -35,13 +38,13 @@ public class FlightsService implements IAirportService<Flight>{
                     "FROM\n" +
                     "\tbookings.flights_v\n";
 
+
     private IAirportDao<Flight> fd;
 
     public FlightsService(List<String> params) {
         List<String> s = params.stream()
                 .map(x -> Objects.isNull(x) || x.isEmpty() ? null : x)
                 .collect(Collectors.toList());
-
 
         FlightDao flightDao = new FlightDao(getSelector(s));
 
@@ -57,6 +60,11 @@ public class FlightsService implements IAirportService<Flight>{
         return fd.getFromDB();
     }
 
+    /**
+     * Method to create the query for JDBC
+     * @param params - List where additional parameters for query have been saved
+     * @return - Full query
+     */
     private String getSelector(List<String> params) {
         StringBuilder builder = new StringBuilder();
         String and = "AND\n";

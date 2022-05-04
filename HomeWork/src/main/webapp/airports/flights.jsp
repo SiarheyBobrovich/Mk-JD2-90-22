@@ -8,6 +8,7 @@
 <form action=<%= request.getContextPath() + "/flights"%> method="POST">
 
 <%@include file="/includes/send.jsp"%><br>
+
     <table>
         <thead>
             <tr>
