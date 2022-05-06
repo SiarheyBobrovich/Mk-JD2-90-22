@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 public class Flight implements BaseAirportObject {
 
     private final Long flightId;
-    private final Long flightNo;
+    private final String flightNo;
     private final LocalDateTime scheduledDeparture;
     private final LocalDateTime scheduledDepartureLocal;
     private final LocalDateTime scheduledArrival;
@@ -28,7 +28,7 @@ public class Flight implements BaseAirportObject {
     private final LocalDateTime actualArrivalLocal;
     private final Duration actualDuration;
 
-    public Flight(Long flightId, Long flightNo, LocalDateTime scheduledDeparture, LocalDateTime scheduledDepartureLocal,
+    public Flight(Long flightId, String flightNo, LocalDateTime scheduledDeparture, LocalDateTime scheduledDepartureLocal,
                   LocalDateTime scheduledArrival, LocalDateTime scheduledArrivalLocal, Duration scheduledDuration,
                   String departureAirport, String departureAirportName, String departureCity, String arrivalAirport,
                   String arrivalAirportName, String arrivalCity, String status, String aircraftCode,
@@ -60,7 +60,7 @@ public class Flight implements BaseAirportObject {
         return flightId;
     }
 
-    public Long getFlightNo() {
+    public String getFlightNo() {
         return flightNo;
     }
 
@@ -166,7 +166,7 @@ public class Flight implements BaseAirportObject {
     public static class Builder {
 
         private Long flightId;
-        private Long flightNo;
+        private String flightNo;
         private LocalDateTime scheduledDeparture;
         private LocalDateTime scheduledDepartureLocal;
         private LocalDateTime scheduledArrival;
@@ -192,7 +192,7 @@ public class Flight implements BaseAirportObject {
             this.flightId = flightId;
         }
 
-        public void setFlightNo(Long flightNo) {
+        public void setFlightNo(String flightNo) {
             this.flightNo = flightNo;
         }
 

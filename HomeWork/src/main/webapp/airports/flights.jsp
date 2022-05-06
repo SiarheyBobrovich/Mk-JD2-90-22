@@ -1,13 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@ page language="java"
-    contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"
-%>
-
-<form action=<%= request.getContextPath() + "/flights"%> method="POST">
-
 <%@include file="/includes/send.jsp"%><br>
+
+<form action=<%= request.getContextPath() + "/flights"%> method="GET">
 
     <table>
         <thead>
@@ -25,7 +20,7 @@
                         <select name="departureAirport">
                             <option value="" selected></option>
                             <c:forEach var="airport" items="${airports}">
-                                <option value="${airport.getName()}"> ${airport.getName()} </option>
+                                <option value="${airport.code}"> ${airport.name} </option>
                             </c:forEach>
                         </select>
                     </td>
@@ -34,7 +29,7 @@
                         <select name="arrivalAirport">
                             <option value="" selected></option>
                             <c:forEach var="airport" items="${airports}">
-                               <option value="${airport.getName()}"> ${airport.getName()} </option>
+                               <option value="${airport.code}"> ${airport.name} </option>
                            </c:forEach>
                         </select>
                     </td>

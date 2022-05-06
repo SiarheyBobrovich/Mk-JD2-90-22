@@ -2,6 +2,8 @@ package org.it_academy.aviasales.info.dao;
 
 import org.it_academy.aviasales.info.dao.api.IAirportDao;
 import org.it_academy.aviasales.info.dto.Airport;
+import org.it_academy.aviasales.info.dto.Pageable;
+import org.it_academy.aviasales.info.dto.filters.api.IFilter;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,21 +26,6 @@ public class AirportsDao implements IAirportDao<Airport> {
                     "ORDER BY\n" +
                     "city;";
 
-    @Override
-    public List<Airport> getFromDB() {
-
-        try(Connection connection = AirportDataSource.getInstance().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(allAirportsSelector)) {
-
-            try(ResultSet resultSet = preparedStatement.executeQuery()) {
-
-                return (map(resultSet));
-            }
-
-        }catch (SQLException e) {
-            throw new RuntimeException("Не удалось подключиться к базе", e);
-        }
-    }
 
     /**
      * Method for saving the Airport objects taken from the DB
@@ -62,5 +49,20 @@ public class AirportsDao implements IAirportDao<Airport> {
         }
 
         return airports;
+    }
+
+    @Override
+    public List<Airport> getFromDB(Pageable pageable, IFilter filter) {
+        try(Connection connection = AirportDataSource.getInstance().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(allAirportsSelector)) {
+
+            try(ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                return (map(resultSet));
+            }
+
+        }catch (SQLException e) {
+            throw new RuntimeException("Не удалось подключиться к базе", e);
+        }
     }
 }
