@@ -1,9 +1,10 @@
-package org.it_academy.airport.info.dao;
+package org.it_academy.aviasales.info.dao;
 
-import org.it_academy.airport.info.dao.api.IAirportDao;
-import org.it_academy.airport.info.dto.Flight;
+import org.it_academy.aviasales.info.dao.api.IAirportDao;
+import org.it_academy.aviasales.info.dto.Flight;
 
 import java.sql.*;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -94,28 +95,30 @@ public class FlightDao implements IAirportDao<Flight> {
         List<Flight> resultList = new ArrayList<>();
 
         while (rs.next()) {
-            resultList.add(new Flight(
-                    rs.getString("flight_id"),
-                    rs.getString("flight_no"),
-                    rs.getString("scheduled_departure"),
-                    rs.getString("scheduled_departure_local"),
-                    rs.getString("scheduled_arrival"),
-                    rs.getString("scheduled_arrival_local"),
-                    rs.getString("scheduled_duration"),
-                    rs.getString("departure_airport"),
-                    rs.getString("departure_airport_name"),
-                    rs.getString("departure_city"),
-                    rs.getString("arrival_airport"),
-                    rs.getString("arrival_airport_name"),
-                    rs.getString("arrival_city"),
-                    rs.getString("status"),
-                    rs.getString("aircraft_code"),
-                    rs.getString("actual_departure"),
-                    rs.getString("actual_departure_local"),
-                    rs.getString("actual_arrival"),
-                    rs.getString("actual_arrival_local"),
-                    rs.getString("actual_duration"))
-            );
+            Flight.Builder builder = Flight.Builder.create();
+
+            builder.setFlightId(rs.getLong("flight_id"));
+            builder.setFlightNo(rs.getLong("flight_no"));
+            builder.setScheduledDeparture(rs.getTimestamp("scheduled_departure").toLocalDateTime());
+            builder.setScheduledDepartureLocal(rs.getTimestamp("scheduled_departure_local").toLocalDateTime());
+            builder.setScheduledArrival(rs.getTimestamp("scheduled_arrival").toLocalDateTime());
+            builder.setScheduledArrivalLocal(rs.getTimestamp("scheduled_arrival_local").toLocalDateTime());
+            builder.setScheduledDuration(Duration.ofSeconds(rs.getTimestamp("scheduled_duration").getTime()));
+            builder.setDepartureAirport(rs.getString("departure_airport"));
+            builder.setDepartureAirportName(rs.getString("departure_airport_name"));
+            builder.setDepartureCity(rs.getString("departure_city"));
+            builder.setArrivalAirport(rs.getString("arrival_airport"));
+            builder.setArrivalAirportName(rs.getString("arrival_airport_name"));
+            builder.setArrivalCity(rs.getString("arrival_city"));
+            builder.setStatus(rs.getString("status"));
+            builder.setAircraftCode(rs.getString("aircraft_code"));
+            builder.setActualDeparture(rs.getTimestamp("actual_departure").toLocalDateTime());
+            builder.setActualDepartureLocal(rs.getTimestamp("actual_departure_local").toLocalDateTime());
+            builder.setActualArrival(rs.getTimestamp("actual_arrival").toLocalDateTime());
+            builder.setActualArrivalLocal(rs.getTimestamp("actual_arrival_local").toLocalDateTime());
+            builder.setActualDuration(Duration.ofSeconds(rs.getTimestamp("actual_duration").getTime()));
+
+            resultList.add(builder.build());
         }
 
         return resultList;

@@ -1,4 +1,4 @@
-package org.it_academy.airport.info.dao;
+package org.it_academy.aviasales.info.dao;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 

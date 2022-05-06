@@ -1,8 +1,8 @@
-package org.it_academy.airport.info.service;
+package org.it_academy.aviasales.info.service;
 
-import org.it_academy.airport.info.dao.FlightsDeprecatedDao;
-import org.it_academy.airport.info.dto.Flight;
-import org.it_academy.airport.info.service.api.IAirportService;
+import org.it_academy.aviasales.info.dao.FlightsDeprecatedDao;
+import org.it_academy.aviasales.info.dto.Flight;
+import org.it_academy.aviasales.info.service.api.IAirportService;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

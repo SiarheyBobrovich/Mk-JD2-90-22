@@ -1,7 +1,7 @@
-package org.it_academy.airport.info.dao;
+package org.it_academy.aviasales.info.dao;
 
-import org.it_academy.airport.info.dao.api.IAirportDao;
-import org.it_academy.airport.info.dto.Flight;
+import org.it_academy.aviasales.info.dao.api.IAirportDao;
+import org.it_academy.aviasales.info.dto.Flight;
 
 import java.sql.*;
 import java.time.LocalDateTime;
