@@ -13,12 +13,29 @@ public class FlightFilters implements IFilter {
     private final LocalDateTime actualDepartureLocal;
     private final LocalDateTime actualArrivalLocal;
 
+
     private FlightFilters(String departureAirport, String arrivalAirport,
-                         LocalDateTime actualDepartureLocal, LocalDateTime actualArrivalLocal) {
+                          LocalDateTime actualDepartureLocal, LocalDateTime actualArrivalLocal) {
         this.departureAirport = departureAirport;
         this.arrivalAirport = arrivalAirport;
         this.actualDepartureLocal = actualDepartureLocal;
         this.actualArrivalLocal = actualArrivalLocal;
+    }
+
+    public String getDepartureAirport() {
+        return departureAirport;
+    }
+
+    public String getArrivalAirport() {
+        return arrivalAirport;
+    }
+
+    public LocalDateTime getActualDepartureLocal() {
+        return actualDepartureLocal;
+    }
+
+    public LocalDateTime getActualArrivalLocal() {
+        return actualArrivalLocal;
     }
 
     @Override
@@ -67,6 +84,14 @@ public class FlightFilters implements IFilter {
         };
     }
 
+    @Override
+    public String toParameterString() {
+        return "departureAirport=" + (departureAirport == null ? "" : departureAirport) +
+        "&arrivalAirport=" + (arrivalAirport == null ? "" : arrivalAirport) +
+        "&actualDepartureLocal=" + (actualDepartureLocal == null ? "" : actualDepartureLocal) +
+        "&actualArrivalLocal=" + (actualArrivalLocal == null ? "" : actualArrivalLocal);
+    }
+
     public static class Builder {
         private String departureAirport;
         private String arrivalAirport;
@@ -77,14 +102,14 @@ public class FlightFilters implements IFilter {
         }
 
         public Builder setDepartureAirport(String departureAirport) {
-            if (!departureAirport.isEmpty()) {
+            if (departureAirport != null && !departureAirport.isEmpty()) {
                 this.departureAirport = departureAirport;
             }
             return this;
         }
 
         public Builder setArrivalAirport(String arrivalAirport) {
-            if (!arrivalAirport.isEmpty()) {
+            if (arrivalAirport != null && !arrivalAirport.isEmpty()) {
                 this.arrivalAirport = arrivalAirport;
             }
             return this;

@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class FlightDao implements IAirportDao<Flight> {
 
@@ -69,9 +68,9 @@ public class FlightDao implements IAirportDao<Flight> {
             }
 
             if (!isPageNull) {
-                int p = page.getPage();
-                preparedStatement.setInt(++index, page.getSize() * (p - 1));
-                preparedStatement.setInt(++index, p);
+                int size = page.getSize();
+                preparedStatement.setInt(++index, size * (page.getPage() - 1));
+                preparedStatement.setInt(++index, size);
             }
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -98,8 +97,7 @@ public class FlightDao implements IAirportDao<Flight> {
         Map<String, Object> params = filter.getParams();
 
         if (!Objects.isNull(params.get("departureAirport"))) {
-            builder.append(where)
-                    .append("\tdeparture_airport = ? ");
+            builder.append("\tdeparture_airport = ? ");
         }
 
         if (!Objects.isNull(params.get("arrivalAirport"))) {
@@ -123,8 +121,7 @@ public class FlightDao implements IAirportDao<Flight> {
                 builder.append("\tdate_trunc('day', actual_arrival_local) = ?\n");
         }
 
-        return builder.insert(0, where)
-                .toString();
+        return builder.insert(0, where).toString();
     }
 
     private String addPageParam(String query) {

@@ -33,8 +33,8 @@ public class FlightsService implements IAirportService<Flight>{
     @Override
     public List<Flight> getWithParams(Pageable pageable, IFilter filter) {
         FlightDao flightDao = new FlightDao();
-        flightDao.getFromDB(pageable, filter);
-        return null;
+
+        return flightDao.getFromDB(pageable, filter);
     }
 
 }

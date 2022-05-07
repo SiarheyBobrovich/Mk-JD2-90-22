@@ -16,6 +16,14 @@
         padding: 3px; /* Поля вокруг содержимого таблицы */
         border: 1px solid black; /* Параметры рамки */
     }
+    .btn {
+        display: inline-block; /* Строчно-блочный элемент */
+        background: #8C959D; /* Серый цвет фона */
+        color: #fff; /* Белый цвет текста */
+        padding: 0.5rem 0.5rem;
+        text-decoration: none; /* Убираем подчёркивание */
+        border-radius: 3px; /* Скругляем уголки */
+       }
   </style>
  </head>
 
@@ -54,7 +62,7 @@
                 <tbody>
                     <c:forEach var="flight" items="${flights}">
                         <tr>
-                            <c:out value="${flight.getTableString()}" escapeXml="false"/>
+                            <c:out value="${flight.toTableString()}" escapeXml="false"/>
                         </tr>
                      </c:forEach>
                 </tbody>
@@ -64,9 +72,9 @@
 
     <div>
         <c:if test="${flights.size() == 25}">
-            <form action=<%=request.getContextPath() +"/flights?next=" + request.getQueryString()%> method="GET">
-                <p><input type="submit" value="next"></p>
-            </form>
+              <p>
+                <a href="${pageContext.request.contextPath}/flights?${filter.toParameterString()}&page=${page.page}" class="btn">Next</a>
+              </p>
         </c:if>
     </div>
 </body>

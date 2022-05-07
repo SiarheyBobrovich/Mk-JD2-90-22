@@ -2,7 +2,7 @@
 
 <%@include file="/includes/send.jsp"%><br>
 
-<form action=<%= request.getContextPath() + "/flights"%> method="GET">
+<form action="${pageContext.request.contextPath}/flights?page=1&" method="GET">
 
     <table>
         <thead>

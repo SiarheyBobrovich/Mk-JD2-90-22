@@ -7,4 +7,6 @@ public interface IFilter extends Iterable<Object> {
     Map<String, Object> getParams();
 
     boolean isEmpty();
+
+    String toParameterString();
 }

@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"
 %>
 
-<body>
+<div>
     <table>
         <thead>
             <tr>
@@ -24,4 +24,4 @@
              </c:forEach>
         </tbody>
     </table>
-</body>
+</div>
