@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 
 public class FlightDao implements IAirportDao<Flight> {
 
+    private final static FlightDao instance = new FlightDao();
     /**
      * All flights query
      */
@@ -40,6 +41,12 @@ public class FlightDao implements IAirportDao<Flight> {
                     "\tactual_duration\n" +
                     "FROM\n" +
                     "\tbookings.flights_v\n";
+
+    public static FlightDao getInstance() {
+        return instance;
+    }
+
+    private FlightDao() {}
 
     @Override
     public List<Flight> getFromDB(Pageable page, IFilter filters) {
@@ -125,7 +132,7 @@ public class FlightDao implements IAirportDao<Flight> {
     }
 
     private String addPageParam(String query) {
-        return query += "OFFSET ?\nLIMIT ?";
+        return query + "OFFSET ?\nLIMIT ?";
     }
 
 

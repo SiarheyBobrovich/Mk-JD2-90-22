@@ -3,7 +3,7 @@ package org.it_academy.aviasales.info.dto;
 public class Pageable {
 
     private final int size;
-    private int page;
+    private final int page;
 
     public Pageable(int size, int page) {
         this.size = size;
@@ -16,10 +16,6 @@ public class Pageable {
 
     public int getPage() {
         return page;
-    }
-
-    public void incrementPage() {
-        page++;
     }
 
 }

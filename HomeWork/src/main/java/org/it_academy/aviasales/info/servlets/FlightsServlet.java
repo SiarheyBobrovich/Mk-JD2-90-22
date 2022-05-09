@@ -10,7 +10,6 @@ import org.it_academy.aviasales.info.service.api.IAirportService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,46 +36,65 @@ public class FlightsServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html; charset=UTF-8");
 
-        String departureAirport = req.getParameter("departureAirport");
-        String arrivalAirport = req.getParameter("arrivalAirport");
-        String departureDate = req.getParameter("departureDate");
-        String arrivalDate = req.getParameter("arrivalDate");
-
-        //ПЕРЕДЕЛАТЬ
-        FlightFilters filter = (FlightFilters) req.getAttribute("filter");
-        Pageable page = (Pageable) req.getAttribute("page");
-
-        if (filter == null) {
-            filter = FlightFilters.Builder
-                    .create()
-                    .setDepartureAirport(departureAirport)
-                    .setArrivalAirport(arrivalAirport)
-                    .setActualDepartureLocal(parse(departureDate))
-                    .setActualArrivalLocal(parse(arrivalDate))
-                    .build();
-        }
-
-        if (page == null) {
-            page = new Pageable(25, 1);
-        }
-
         req.setAttribute("airports",
                 airportService.getAll().stream().
                         sorted(Comparator.comparing(Airport::getName))
                         .collect(Collectors.toList())
         );
 
-        //До сюда
+        String queryString = req.getQueryString();
+
+        //Перенаправляем если это первый вход на сайт
+        if (req.getSession().isNew() || (queryString == null || queryString.isEmpty())) {
+            req.getRequestDispatcher("/airports/flightsInfo.jsp").forward(req, resp);
+            return;
+        }
+
+        //параметры
+        String departureAirport = req.getParameter("departureAirport");
+        String arrivalAirport = req.getParameter("arrivalAirport");
+        String departureDate = req.getParameter("departureDate");
+        String arrivalDate = req.getParameter("arrivalDate");
+
+        //Создаём фильтр
+        FlightFilters filter = FlightFilters.Builder
+                .create()
+                .setDepartureAirport(departureAirport)
+                .setArrivalAirport(arrivalAirport)
+                .setActualDepartureLocal(parse(departureDate))
+                .setActualArrivalLocal(parse(arrivalDate))
+                .build();
+
+        //Создаём страницу
+        int pageRow = 25;
+        int page = 0;
+
+        String pageRequest = req.getParameter("page");
+
+
+        if (pageRequest != null) {
+            try {
+                page = Integer.parseInt(pageRequest);
+
+            }catch (NumberFormatException e) {
+                resp.sendRedirect(req.getContextPath() + "/flights");
+                return;
+            }
+        }
+
+        Pageable pageable = new Pageable(pageRow, ++page);
+
+        //Заполняем форму вывода
         req.setAttribute("page", page);
         req.setAttribute("filter", filter);
-        req.setAttribute("flights", flightService.getWithParams(page, filter));
+        req.setAttribute("flights", flightService.getWithParams(pageable, filter));
 
         req.getRequestDispatcher("/airports/flightsInfo.jsp").forward(req, resp);
     }
 
     private LocalDateTime parse(String s) {
         if (s != null && !s.isEmpty()) {
-            return LocalDate.parse(s, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay();
+            return LocalDate.parse(s, DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay();
         }
 
         return null;

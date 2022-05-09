@@ -73,7 +73,7 @@
     <div>
         <c:if test="${flights.size() == 25}">
               <p>
-                <a href="${pageContext.request.contextPath}/flights?${filter.toParameterString()}&page=${page.page}" class="btn">Next</a>
+                <a href="${pageContext.request.contextPath}/flights?${filter.toParameterString()}&page=${page}" class="btn">Next</a>
               </p>
         </c:if>
     </div>

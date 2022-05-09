@@ -147,7 +147,7 @@ public class Flight implements BaseAirportObject {
                 startTableTag + (scheduledDepartureLocal != null ? scheduledDepartureLocal.toString() : "") + endTableTag +
                 startTableTag + (scheduledArrival != null ? scheduledArrival.toString() : "") + endTableTag +
                 startTableTag + (scheduledArrivalLocal != null ? scheduledArrivalLocal.toString() : "") + endTableTag +
-                startTableTag + (scheduledDuration != null ? scheduledDuration.toString() : "") + endTableTag +
+                startTableTag + (scheduledDuration != null ? scheduledDuration.toHours() : "") + endTableTag +
                 startTableTag + (departureAirport != null ? departureAirport : "") + endTableTag +
                 startTableTag + (departureAirportName != null ? departureAirportName : "") + endTableTag +
                 startTableTag + (departureCity != null ? departureCity : "") + endTableTag +
