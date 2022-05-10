@@ -45,7 +45,7 @@ public class FlightsServlet extends HttpServlet {
         String queryString = req.getQueryString();
 
         //Перенаправляем если это первый вход на сайт
-        if (req.getSession().isNew() || (queryString == null || queryString.isEmpty())) {
+        if (req.getSession().isNew() || queryString == null ) {
             req.getRequestDispatcher("/airports/flightsInfo.jsp").forward(req, resp);
             return;
         }
