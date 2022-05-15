@@ -1,8 +1,6 @@
 package by.it_academy.jd2.dto_for_jackson.dto;
 
-import com.fasterxml.jackson.annotation.JacksonInject;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
@@ -32,7 +30,7 @@ public class Citizen {
         return id;
     }
 
-    @JsonSetter(value = "id")
+
     public void setId(String id) {
         this.id = id;
     }
@@ -45,12 +43,10 @@ public class Citizen {
         return name;
     }
 
-    @JsonSetter(value = "passport")
     public void setPassport(Passport passport) {
         this.passport = passport;
     }
 
-    @JsonSetter(value = "name")
     public void setName(String name) {
         this.name = name;
     }
@@ -59,7 +55,6 @@ public class Citizen {
         return birthday;
     }
 
-    @JsonSetter(value = "birthday")
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }

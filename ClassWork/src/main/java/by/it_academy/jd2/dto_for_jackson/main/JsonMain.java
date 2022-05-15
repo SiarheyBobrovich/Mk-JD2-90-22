@@ -43,5 +43,7 @@ public class JsonMain {
 
         Citizen citizen1 = mapper.readValue(deserialize, Citizen.class);
         System.out.println("Json deserialize: " + citizen1);
+
+
     }
 }

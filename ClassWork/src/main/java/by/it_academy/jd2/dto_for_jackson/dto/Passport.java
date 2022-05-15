@@ -1,11 +1,10 @@
 package by.it_academy.jd2.dto_for_jackson.dto;
 
-import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -17,20 +16,20 @@ import java.util.Objects;
  */
 
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-@JsonDeserialize(builder = Passport.PassportBuilder.class)
 public class Passport {
 
     private String id;
     private String idCitizen;
     private String address;
 
-    @JsonSerialize(using = MyDateSerializer.class)
-
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
     private LocalDate createDate;
 
-    public Passport(String id,
-                    String idCitizen,
-                    String address, LocalDate createDate) {
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public Passport(@JsonProperty("id") String id,
+                    @JsonProperty("id_citizen") String idCitizen,
+                    @JsonProperty("adress") String address,
+                    @JsonProperty(value = "create_date", defaultValue = "null") LocalDate createDate) {
         this.id = id;
         this.idCitizen = idCitizen;
         this.address = address;
@@ -91,37 +90,5 @@ public class Passport {
                 ", address='" + address + '\'' +
                 ", createDate=" + createDate +
                 '}';
-    }
-    @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-    @JsonPOJOBuilder(buildMethodName = "create", withPrefix = "set")
-    static class PassportBuilder {
-        private String id;
-        private String idCitizen;
-        private String address;
-        private LocalDate createDate;
-
-        public PassportBuilder setId(String id) {
-            this.id = id;
-            return this;
-        }
-
-        public PassportBuilder setIdCitizen(String idCitizen) {
-            this.idCitizen = idCitizen;
-            return this;
-        }
-
-        public PassportBuilder setAddress(String address) {
-            this.address = address;
-            return this;
-        }
-
-        public PassportBuilder setCreateDate(long createDate) {
-            this.createDate = LocalDate.ofEpochDay(createDate);
-            return this;
-        }
-
-        public Passport create() {
-            return new Passport(id, idCitizen, address, createDate);
-        }
     }
 }
