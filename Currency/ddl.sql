@@ -1,6 +1,16 @@
 CREATE SCHEMA IF NOT EXISTS hibernate
     AUTHORIZATION postgres;
 
+CREATE SEQUENCE IF NOT EXISTS hibernate.currencies_id_seq
+INCREMENT 1
+START 1
+MINVALUE 1
+MAXVALUE 9223372036854775807
+CACHE 1;
+
+ALTER SEQUENCE local.events_id_sequence
+    OWNER TO postgres;
+
 CREATE TABLE IF NOT EXISTS hibernate.currencies
 (
     id bigint NOT NULL DEFAULT nextval('hibernate.currencies_id_seq'::regclass),
