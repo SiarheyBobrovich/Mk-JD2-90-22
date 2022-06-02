@@ -2,6 +2,8 @@ package by.it_academy.jd2.dto_for_jackson.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -48,7 +50,8 @@ class CitizenTest {
 
     @BeforeAll
     static void init() {
-        mapper.registerModule(new JavaTimeModule());
+        mapper.registerModule(new JavaTimeModule())
+                .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
 
         citizen.setName("Siarhey");
         citizen.setId("1");

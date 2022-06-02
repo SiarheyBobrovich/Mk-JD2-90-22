@@ -2,6 +2,7 @@ package by.it_academy.jd2.dto_for_jackson.dto;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,7 +32,8 @@ class PassportTest {
 
     @BeforeAll
     static void init() {
-        mapper.registerModule(new JavaTimeModule());
+        mapper.registerModule(new JavaTimeModule())
+                .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
     }
 
     @Test
@@ -39,14 +41,22 @@ class PassportTest {
 
         String pass = mapper.writeValueAsString(passport);
 
-        System.out.println(pass);
-
-        Assertions.assertEquals(JSON_SERIALIZE_PASSPORT, pass);
+        Assertions.assertTrue(pass.contains("id"));
+        Assertions.assertTrue(pass.contains("123"));
+        Assertions.assertTrue(pass.contains("id_citizen"));
+        Assertions.assertTrue(pass.contains("1"));
+        Assertions.assertTrue(pass.contains("address"));
+        Assertions.assertTrue(pass.contains("Geroev"));
+        Assertions.assertTrue(pass.contains("create_date"));
+        Assertions.assertTrue(pass.contains("6386"));
     }
 
     @Test
     void deserializeTest() throws JsonProcessingException {
         Passport passport = mapper.readValue(JSON_DESERIALIZE_PASSPORT, Passport.class);
-        System.out.println(passport);
+        Assertions.assertEquals("123", passport.getId());
+        Assertions.assertEquals("1", passport.getIdCitizen());
+        Assertions.assertEquals("Geroev", passport.getAddress());
+        Assertions.assertEquals("1987-06-27", passport.getCreateDate().toString());
     }
 }

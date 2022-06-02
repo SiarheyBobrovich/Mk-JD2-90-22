@@ -1,8 +1,6 @@
 package by.it_academy.jd2.dto_for_jackson.dto;
 
 import com.fasterxml.jackson.annotation.*;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -16,7 +14,6 @@ import java.util.Objects;
  * 	3. Эквивалентность гражданина определяется по ИД гражданина и паспорту
  */
 
-@JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Citizen {
 
     private String id;

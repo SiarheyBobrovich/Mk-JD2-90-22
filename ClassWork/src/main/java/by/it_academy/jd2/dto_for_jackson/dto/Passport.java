@@ -15,7 +15,6 @@ import java.util.Objects;
  * 	4. ИД паспорта
  */
 
-@JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class Passport {
 
     private String id;
@@ -26,10 +25,10 @@ public class Passport {
     private LocalDate createDate;
 
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
-    public Passport(@JsonProperty("id") String id,
-                    @JsonProperty("id_citizen") String idCitizen,
-                    @JsonProperty("adress") String address,
-                    @JsonProperty(value = "create_date", defaultValue = "null") LocalDate createDate) {
+    public Passport(@JsonProperty(value = "id") String id,
+                    @JsonProperty("id_Citizen") String idCitizen,
+                    @JsonProperty("address") String address,
+                    @JsonProperty(value = "create_Date", defaultValue = "null") LocalDate createDate) {
         this.id = id;
         this.idCitizen = idCitizen;
         this.address = address;
