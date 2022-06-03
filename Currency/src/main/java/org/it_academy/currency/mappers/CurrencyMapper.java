@@ -27,6 +27,8 @@ public class CurrencyMapper {
                 .setCode(currency.getCode())
                 .setName(currency.getName())
                 .setDescription(currency.getDescription())
+                .setCreateDate(currency.getCreateDate())
+                .setUpdateDate(currency.getUpdateDate())
                 .build();
     }
 }

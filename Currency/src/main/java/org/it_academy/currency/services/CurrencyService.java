@@ -1,5 +1,6 @@
 package org.it_academy.currency.services;
 
+import jakarta.persistence.PersistenceException;
 import org.it_academy.currency.api.CRUD.ICRUDHibernate;
 import org.it_academy.currency.api.CRUD.ICRUDService;
 import org.it_academy.currency.dao.CurrencyDao;
@@ -40,7 +41,13 @@ public class CurrencyService implements ICRUDService {
 
         Currency entity = CurrencyMapper.map(dto);
 
-        return dao.save(entity);
+        try {
+            return dao.save(entity);
+
+        }catch (PersistenceException e) {
+            throw new CurrencyServiceException(409, "Conflict");
+        }
+
     }
 
     @Override
@@ -71,22 +78,26 @@ public class CurrencyService implements ICRUDService {
             throw new CurrencyServiceException(415, "Unsupported media type");
         }
 
-        return CurrencyMapper.map(dao.get(id));
+        try {
+            return CurrencyMapper.map(dao.get(id));
+
+        }catch (PersistenceException e) {
+            throw new CurrencyServiceException(404, "Not found");
+        }
     }
 
     @Override
     public void update(Value dto) {
-        if (dto.getId() == 0) {
+
+        if (dto.getId() < 1) {
             throw new CurrencyServiceException(415, "Unsupported media type");
         }
 
-        String name = dto.getName();
+        try {
+            dao.update(CurrencyMapper.map(dto));
 
-        if (name == null) {
-            throw new CurrencyServiceException(415, "Unsupported media type");
+        }catch (IllegalArgumentException e) {
+            throw new CurrencyServiceException(404, "Not found");
         }
-
-        dao.update(CurrencyMapper.map(dto));
     }
-
 }

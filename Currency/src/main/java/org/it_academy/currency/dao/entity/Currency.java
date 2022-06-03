@@ -10,6 +10,9 @@ import java.util.Objects;
 @Table(name = "Currencies")
 public class Currency {
 
+    @Version
+    private long version;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,10 +24,10 @@ public class Currency {
     private String name;
     private String description;
 
-    @Column(name = "create_date", updatable = false)
+    @Column(name = "dt_create", updatable = false)
     private LocalDateTime createDate;
 
-    @Column(name = "update_date")
+    @Column(name = "dt_update")
     private LocalDateTime updateDate;
 
     public Currency() {
@@ -84,6 +87,10 @@ public class Currency {
         this.updateDate = updateDate;
     }
 
+    public long getVersion() {
+        return version;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -99,7 +106,7 @@ public class Currency {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code, description, name, createDate, updateDate);
+       return Objects.hash(id, code, description, name, createDate, updateDate);
     }
 
     @Override
@@ -109,8 +116,6 @@ public class Currency {
                 ", code='" + code + '\'' +
                 ", description='" + description + '\'' +
                 ", name='" + name + '\'' +
-                ", created=" + createDate +
-                ", updated=" + updateDate +
                 '}';
     }
 }

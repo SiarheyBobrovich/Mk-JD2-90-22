@@ -3,6 +3,7 @@ package org.it_academy.currency.controllers.json;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.it_academy.currency.api.CRUD.ICRUDService;
 import org.it_academy.currency.controllers.utils.ControllerUtils;
@@ -11,13 +12,14 @@ import org.it_academy.currency.exceptions.CurrencyServiceException;
 import org.it_academy.currency.services.CurrencyService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 
+@WebServlet(name = "CurrencyController", urlPatterns = "/currency")
 public class CurrencyController extends HttpServlet {
 
     private final ObjectMapper mapper;
@@ -26,8 +28,10 @@ public class CurrencyController extends HttpServlet {
     public CurrencyController() {
         service = CurrencyService.getInstance();
         mapper = new ObjectMapper()
-                .setPropertyNamingStrategy(PropertyNamingStrategies.LOWER_CAMEL_CASE)
+                .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
                 .registerModule(new JavaTimeModule());
+
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     }
 
     @Override
@@ -45,6 +49,9 @@ public class CurrencyController extends HttpServlet {
 
             } catch (NumberFormatException e) {
                 resp.setStatus(400);
+                return;
+            }catch (CurrencyServiceException e) {
+                resp.setStatus(e.getStatus());
                 return;
             }
 
