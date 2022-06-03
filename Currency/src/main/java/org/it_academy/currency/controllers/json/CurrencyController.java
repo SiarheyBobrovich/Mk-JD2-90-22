@@ -11,13 +11,14 @@ import org.it_academy.currency.exceptions.CurrencyServiceException;
 import org.it_academy.currency.services.CurrencyService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 
+@WebServlet(name = "CurrencyController", urlPatterns = "/currency")
 public class CurrencyController extends HttpServlet {
 
     private final ObjectMapper mapper;
@@ -45,6 +46,9 @@ public class CurrencyController extends HttpServlet {
 
             } catch (NumberFormatException e) {
                 resp.setStatus(400);
+                return;
+            }catch (CurrencyServiceException e) {
+                resp.setStatus(e.getStatus());
                 return;
             }
 

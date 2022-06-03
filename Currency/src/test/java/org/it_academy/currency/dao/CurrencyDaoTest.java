@@ -10,47 +10,65 @@ import java.util.List;
 
 class CurrencyDaoTest {
 
+
+
     private static final Currency currency;
     private static final ICRUDHibernate dao = CurrencyDao.getInstance();
 
+    private static final long id = 5;
+
     static {
-        currency = new Currency("BY", "Вроде деньи", "Belarus");
+        currency = new Currency();
+        currency.setCode("BY");
+        currency.setName("Беларусские грошы");
+        currency.setDescription("Вроде деньги, а вроде и нет");
         currency.setCreateDate(LocalDateTime.now());
         currency.setUpdateDate(LocalDateTime.now());
     }
 
     @Test
-    void save() {
-
-        Assertions.assertDoesNotThrow(() -> dao.save(currency));
+    void fullTest() {
+        save();
+        get();
+        update();
+        getAll();
+        delete();
     }
-
     @Test
-    void delete() {
-        currency.setId(2);
-        Assertions.assertDoesNotThrow(() -> dao.delete(currency));
+    void save() {
+        Assertions.assertDoesNotThrow(() -> System.out.println(dao.save(currency)));
     }
 
     @Test
     void getAll() {
         Assertions.assertDoesNotThrow(dao::getAll);
         List<Currency> all = dao.getAll();
-        all.forEach(System.out::println);
+
+        Assertions.assertNotNull(all);
+
+        System.out.println("Version = " +  all.get(0).getVersion());
     }
 
     @Test
     void get() {
-        long id = 3;
-        Assertions.assertDoesNotThrow(() -> dao.get(3));
+        Assertions.assertDoesNotThrow(() -> dao.get(id));
         Currency currency1 = dao.get(id);
 
-        System.out.println(currency1);
+        Assertions.assertNotNull(currency1);
+
+        System.out.println("Version = " + currency1.getVersion());
     }
 
     @Test
     void update() {
-        currency.setId(3);
+        currency.setId(id);
         currency.setDescription("Белки");
         Assertions.assertDoesNotThrow(() -> dao.update(currency));
+    }
+
+    @Test
+    void delete() {
+        currency.setId(id);
+        Assertions.assertDoesNotThrow(() -> dao.delete(currency));
     }
 }
