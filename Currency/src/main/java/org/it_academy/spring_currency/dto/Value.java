@@ -1,4 +1,4 @@
-package org.it_academy.currency.dto;
+package org.it_academy.spring_currency.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;

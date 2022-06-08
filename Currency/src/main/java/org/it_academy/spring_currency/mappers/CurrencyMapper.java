@@ -1,9 +1,9 @@
-package org.it_academy.currency.mappers;
+package org.it_academy.spring_currency.mappers;
 
-import org.it_academy.currency.dao.entity.Currency;
-import org.it_academy.currency.dto.CurrencyDto;
-import org.it_academy.currency.dto.CurrencyId;
-import org.it_academy.currency.dto.Value;
+import org.it_academy.currency.dao.entity.SpringCurrency;
+import org.it_academy.spring_currency.dto.CurrencyDto;
+import org.it_academy.spring_currency.dto.CurrencyId;
+import org.it_academy.spring_currency.dto.Value;
 
 import java.time.LocalDateTime;
 
@@ -12,8 +12,8 @@ public class CurrencyMapper {
     private CurrencyMapper() {
     }
 
-    public static Currency map(Value value) {
-        Currency currency = new Currency();
+    public static SpringCurrency map(Value value) {
+        SpringCurrency currency = new SpringCurrency();
 
         currency.setId(value.getId());
         currency.setCode(value.getCode());
@@ -25,16 +25,16 @@ public class CurrencyMapper {
         return currency;
     }
 
-    public static Currency map(CurrencyId value) {
-        Currency currency = new Currency();
+    public static SpringCurrency map(CurrencyId value) {
+        SpringCurrency currency = new SpringCurrency();
 
         currency.setId(value.getId());
 
         return currency;
     }
 
-    public static Currency map(CurrencyDto value) {
-        Currency currency = new Currency();
+    public static SpringCurrency map(CurrencyDto value) {
+        SpringCurrency currency = new SpringCurrency();
 
         currency.setCode(value.getCode());
         currency.setName(value.getName());
@@ -45,7 +45,7 @@ public class CurrencyMapper {
         return currency;
     }
 
-    public static Value map(Currency currency) {
+    public static Value map(SpringCurrency currency) {
 
         return Value.create()
                 .setId(currency.getId())

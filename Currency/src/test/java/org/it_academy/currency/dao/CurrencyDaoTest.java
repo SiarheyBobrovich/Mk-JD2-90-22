@@ -15,16 +15,18 @@ class CurrencyDaoTest {
     private static final Currency currency;
     private static final ICRUDHibernate dao = CurrencyDao.getInstance();
 
-    private static final long id = 5;
+    private static final long id = 9;
 
     static {
         currency = new Currency();
         currency.setCode("BY");
-        currency.setName("Беларусские грошы");
+        currency.setName("United states");
         currency.setDescription("Вроде деньги, а вроде и нет");
         currency.setCreateDate(LocalDateTime.now());
         currency.setUpdateDate(LocalDateTime.now());
     }
+
+
 
     @Test
     void fullTest() {
@@ -46,7 +48,7 @@ class CurrencyDaoTest {
 
         Assertions.assertNotNull(all);
 
-        System.out.println("Version = " +  all.get(0).getVersion());
+        System.out.println("Version = " +  all.get(0));
     }
 
     @Test
@@ -56,7 +58,7 @@ class CurrencyDaoTest {
 
         Assertions.assertNotNull(currency1);
 
-        System.out.println("Version = " + currency1.getVersion());
+        System.out.println("Version = " + currency1);
     }
 
     @Test

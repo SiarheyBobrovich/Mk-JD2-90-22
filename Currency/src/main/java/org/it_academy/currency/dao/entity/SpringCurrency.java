@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "Currencies")
-public class Currency {
+public class SpringCurrency {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +28,10 @@ public class Currency {
     @Column(name = "dt_update")
     private LocalDateTime updateDate;
 
-    public Currency() {
+    public SpringCurrency() {
     }
 
-    public Currency(String code, String description, String name) {
+    public SpringCurrency(String code, String description, String name) {
         this.code = code;
         this.description = description;
         this.name = name;
@@ -88,8 +88,8 @@ public class Currency {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Currency)) return false;
-        Currency currency = (Currency) o;
+        if (!(o instanceof SpringCurrency)) return false;
+        SpringCurrency currency = (SpringCurrency) o;
         return id == currency.id &&
                 Objects.equals(code, currency.code) &&
                 Objects.equals(description, currency.description) &&
@@ -105,11 +105,13 @@ public class Currency {
 
     @Override
     public String toString() {
-        return "Currency{" +
+        return "SpringCurrency{" +
                 "id=" + id +
                 ", code='" + code + '\'' +
-                ", description='" + description + '\'' +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", createDate=" + createDate +
+                ", updateDate=" + updateDate +
                 '}';
     }
 }

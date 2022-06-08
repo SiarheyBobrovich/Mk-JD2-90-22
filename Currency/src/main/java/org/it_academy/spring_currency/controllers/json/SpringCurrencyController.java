@@ -1,17 +1,18 @@
-package org.it_academy.currency.controllers.json;
+package org.it_academy.spring_currency.controllers.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.it_academy.currency.api.CRUD.ICRUDService;
-import org.it_academy.currency.controllers.utils.ControllerUtils;
-import org.it_academy.currency.dto.CurrencyDto;
-import org.it_academy.currency.dto.CurrencyId;
-import org.it_academy.currency.dto.Value;
-import org.it_academy.currency.exceptions.CurrencyServiceException;
-import org.it_academy.currency.services.CurrencyService;
+import org.it_academy.spring_currency.api.CRUD.ICRUDService;
+import org.it_academy.spring_currency.services.CurrencyService;
+import org.it_academy.spring_currency.controllers.utils.ControllerUtils;
+import org.it_academy.spring_currency.dto.CurrencyDto;
+import org.it_academy.spring_currency.dto.CurrencyId;
+import org.it_academy.spring_currency.dto.Value;
+import org.it_academy.spring_currency.exceptions.CurrencyServiceException;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,17 +22,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "CurrencyController", urlPatterns = "/currency")
-public class CurrencyController extends HttpServlet {
+@WebServlet(name = "SpringCurrencyController", urlPatterns = "/spring/currency")
+public class SpringCurrencyController extends HttpServlet {
 
     private final ObjectMapper mapper;
     private final ICRUDService service;
 
-    public CurrencyController() {
-        service = CurrencyService.getInstance();
-        mapper = new ObjectMapper()
+    public SpringCurrencyController() {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("application.xml");
+
+        service = context.getBean(CurrencyService.class);
+
+        mapper = context.getBean(ObjectMapper.class)
                 .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
                 .registerModule(new JavaTimeModule());
+
 
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     }

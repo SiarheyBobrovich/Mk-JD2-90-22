@@ -1,32 +1,26 @@
-package org.it_academy.currency.services;
+package org.it_academy.spring_currency.services;
 
 import jakarta.persistence.PersistenceException;
-import org.it_academy.currency.api.CRUD.ICRUDHibernate;
-import org.it_academy.currency.api.CRUD.ICRUDService;
-import org.it_academy.currency.dao.CurrencyDao;
-import org.it_academy.currency.dao.entity.Currency;
-import org.it_academy.currency.dto.CurrencyDto;
-import org.it_academy.currency.dto.CurrencyId;
-import org.it_academy.currency.dto.Value;
-import org.it_academy.currency.exceptions.CurrencyServiceException;
-import org.it_academy.currency.mappers.CurrencyMapper;
+import org.it_academy.spring_currency.api.CRUD.ICRUDHibernateDao;
+import org.it_academy.spring_currency.api.CRUD.ICRUDService;
+import org.it_academy.spring_currency.mappers.CurrencyMapper;
+import org.it_academy.currency.dao.entity.SpringCurrency;
+import org.it_academy.spring_currency.dto.CurrencyDto;
+import org.it_academy.spring_currency.dto.CurrencyId;
+import org.it_academy.spring_currency.dto.Value;
+import org.it_academy.spring_currency.exceptions.CurrencyServiceException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CurrencyService implements ICRUDService {
 
-    private static final CurrencyService instance = new CurrencyService();
-    private static final ICRUDHibernate dao = CurrencyDao.getInstance();
+    private final ICRUDHibernateDao dao;
 
-    private CurrencyService() {
+    public CurrencyService(ICRUDHibernateDao dao) {
+        this.dao = dao;
     }
 
-
-
-    public static CurrencyService getInstance() {
-        return instance;
-    }
 
     @Override
     public long save(CurrencyDto dto) {
@@ -41,7 +35,7 @@ public class CurrencyService implements ICRUDService {
             throw new CurrencyServiceException(415, "Unsupported media type");
         }
 
-        Currency entity = CurrencyMapper.map(dto);
+        SpringCurrency entity = CurrencyMapper.map(dto);
 
         try {
             return dao.save(entity);
@@ -58,7 +52,7 @@ public class CurrencyService implements ICRUDService {
             throw new CurrencyServiceException(415, "Unsupported media type");
         }
 
-        Currency entity = CurrencyMapper.map(dto);
+        SpringCurrency entity = CurrencyMapper.map(dto);
 
         dao.delete(entity);
     }
@@ -67,7 +61,7 @@ public class CurrencyService implements ICRUDService {
     public List<Value> getAll() {
         List<Value> values = new ArrayList<>();
 
-        List<Currency> currencies = dao.getAll();
+        List<SpringCurrency> currencies = dao.getAll();
 
         currencies.forEach(x -> values.add(CurrencyMapper.map(x)));
 
