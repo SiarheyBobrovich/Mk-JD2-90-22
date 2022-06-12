@@ -1,7 +1,6 @@
 package org.it_academy.currency.dao;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceException;
 import org.it_academy.currency.api.CRUD.ICRUDHibernate;
 import org.it_academy.currency.dao.entity.Currency;
 import org.it_academy.currency.exceptions.CurrencyServiceException;

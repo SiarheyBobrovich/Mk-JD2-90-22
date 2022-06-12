@@ -4,11 +4,21 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations" value="classpath:properties/hibernate.properties"/>
+    </bean>
+
     <bean id="currencyDao" class="org.it_academy.spring_currency.dao.CurrencyDao">
         <constructor-arg name="manager" ref="manager" />
     </bean>
 
-    <bean id="manager" class="org.it_academy.spring_currency.dao.Manager">
+    <bean id="manager" class="org.it_academy.spring_currency.dao.Manager" destroy-method="close">
+       <constructor-arg name="properties">
+           <props>
+               <prop key="jakarta.persistence.jdbc.user">${login}</prop>
+               <prop key="jakarta.persistence.jdbc.password">${password}</prop>
+           </props>
+       </constructor-arg>
     </bean>
 
 </beans>

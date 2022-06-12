@@ -4,13 +4,17 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.util.Properties;
+
 public class Manager implements IEntityManager {
 
     private final EntityManagerFactory entityManagerFactory ;
 
-    public Manager() {
+    public Manager(Properties properties) {
+
         entityManagerFactory = Persistence
-                .createEntityManagerFactory("org.it_academy.currency.dao.entity");
+                .createEntityManagerFactory(
+                        "org.it_academy.currency.dao.entity", properties);
     }
 
 
