@@ -10,8 +10,6 @@ import java.util.List;
 
 class CurrencyDaoTest {
 
-
-
     private static final Currency currency;
     private static final ICRUDHibernate dao = CurrencyDao.getInstance();
 

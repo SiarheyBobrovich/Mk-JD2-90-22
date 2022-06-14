@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "SpringCurrencyController", urlPatterns = "/spring/currency")
 public class SpringCurrencyController extends HttpServlet {
 
     private final ObjectMapper mapper;

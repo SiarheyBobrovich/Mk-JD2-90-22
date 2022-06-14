@@ -2,13 +2,14 @@ package org.it_academy.spring_currency.dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
-import org.it_academy.spring_currency.api.CRUD.ICRUDHibernateDao;
+import org.it_academy.spring_currency.api.CRUD.ICRUDDao;
 import org.it_academy.currency.dao.entity.SpringCurrency;
+import org.it_academy.spring_currency.exceptions.CurrencyDaoException;
 import org.it_academy.spring_currency.exceptions.CurrencyServiceException;
 
 import java.util.List;
 
-public class CurrencyDao implements ICRUDHibernateDao {
+public class CurrencyDao implements ICRUDDao {
 
     private final IEntityManager manager;
 
@@ -98,8 +99,11 @@ public class CurrencyDao implements ICRUDHibernateDao {
             throw new CurrencyServiceException(404, "Not found");
         }
 
+        if (!currency1.getUpdateDate().equals(currency.getUpdateDate())) {
+            throw new CurrencyDaoException(409, "Conflict");
+        }
+
         currency1.setDescription(currency.getDescription());
-        currency1.setUpdateDate(currency.getUpdateDate());
 
         entityManager.getTransaction().commit();
         entityManager.close();

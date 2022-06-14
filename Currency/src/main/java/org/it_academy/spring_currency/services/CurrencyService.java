@@ -1,7 +1,7 @@
 package org.it_academy.spring_currency.services;
 
 import jakarta.persistence.PersistenceException;
-import org.it_academy.spring_currency.api.CRUD.ICRUDHibernateDao;
+import org.it_academy.spring_currency.api.CRUD.ICRUDDao;
 import org.it_academy.spring_currency.api.CRUD.ICRUDService;
 import org.it_academy.spring_currency.mappers.CurrencyMapper;
 import org.it_academy.currency.dao.entity.SpringCurrency;
@@ -15,9 +15,9 @@ import java.util.List;
 
 public class CurrencyService implements ICRUDService {
 
-    private final ICRUDHibernateDao dao;
+    private final ICRUDDao dao;
 
-    public CurrencyService(ICRUDHibernateDao dao) {
+    public CurrencyService(ICRUDDao dao) {
         this.dao = dao;
     }
 

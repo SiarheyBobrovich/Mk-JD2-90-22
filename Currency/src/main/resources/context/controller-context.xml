@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
@@ -10,10 +11,10 @@
         http://www.springframework.org/schema/mvc
         https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!-- services -->
+    <mvc:annotation-driven/>
 
-    <bean id="currencyService" class="org.it_academy.spring_currency.services.CurrencyService" scope="singleton">
-        <constructor-arg name="dao" ref="currencyDao" />
-    </bean>
+    <import resource="service-context.xml"/>
+
+    <context:component-scan base-package="org.it_academy.spring_currency.controllers"/>
 
 </beans>

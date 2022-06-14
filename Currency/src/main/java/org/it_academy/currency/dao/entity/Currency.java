@@ -1,6 +1,7 @@
 package org.it_academy.currency.dao.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -35,6 +36,14 @@ public class Currency {
         this.code = code;
         this.description = description;
         this.name = name;
+    }
+
+    public Currency(String code, String name, String description, LocalDateTime createDate, LocalDateTime updateDate) {
+        this.code = code;
+        this.name = name;
+        this.description = description;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
     }
 
     public long getId() {

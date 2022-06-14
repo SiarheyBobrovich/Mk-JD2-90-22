@@ -20,7 +20,7 @@ public class CurrencyMapper {
         currency.setName(value.getName());
         currency.setDescription(value.getDescription());
         currency.setCreateDate(LocalDateTime.now());
-        currency.setUpdateDate(LocalDateTime.now());
+        currency.setUpdateDate(currency.getCreateDate());
 
         return currency;
     }
