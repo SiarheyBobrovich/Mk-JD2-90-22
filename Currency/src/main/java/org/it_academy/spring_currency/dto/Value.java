@@ -2,6 +2,8 @@ package org.it_academy.spring_currency.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import org.it_academy.spring_currency.config.JsonToEpochDate;
 
 import java.time.LocalDateTime;
 
@@ -14,6 +16,7 @@ public class Value {
 
     private  final LocalDateTime createDate;
 
+    @JsonSerialize(using = JsonToEpochDate.class)
     private  final LocalDateTime updateDate;
 
 
