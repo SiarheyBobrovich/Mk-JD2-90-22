@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+@Deprecated(forRemoval = true)
 public class SpringCurrencyController extends HttpServlet {
 
     private final ObjectMapper mapper;

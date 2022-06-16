@@ -9,12 +9,12 @@
 
     <!-- services -->
 
-    <import resource="dao-context.xml"/>
+<!--    <import resource="dao-context.xml"/>-->
 
-    <context:component-scan base-package="org.it_academy.spring_currency.services"/>
+<!--    <context:component-scan base-package="org.it_academy.spring_currency.services"/>-->
 
-    <bean id="currencyService" class="org.it_academy.spring_currency.services.CurrencyService" scope="singleton">
-        <constructor-arg name="dao" ref="currencyDao" />
-    </bean>
+<!--    <bean id="currencyService" class="org.it_academy.spring_currency.services.CurrencyService" scope="singleton">-->
+<!--        <constructor-arg name="dao" ref="currencyDao" />-->
+<!--    </bean>-->
 
 </beans>

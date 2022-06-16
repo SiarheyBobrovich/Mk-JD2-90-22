@@ -3,17 +3,19 @@ package org.it_academy.spring_currency.controllers;
 import org.it_academy.spring_currency.api.CRUD.ICRUDService;
 import org.it_academy.spring_currency.dto.CurrencyDto;
 import org.it_academy.spring_currency.dto.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/currency")
+@RequestMapping("/spring/currency")
 public class CurrencyController {
 
-    private final ICRUDService service;
+    private ICRUDService service;
 
-    public CurrencyController(ICRUDService service) {
+    @Autowired
+    public void setService(ICRUDService service) {
         this.service = service;
     }
 

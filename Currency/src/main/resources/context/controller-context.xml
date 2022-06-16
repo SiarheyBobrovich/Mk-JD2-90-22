@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="
@@ -15,6 +16,32 @@
 
     <import resource="service-context.xml"/>
 
-    <context:component-scan base-package="org.it_academy.spring_currency.controllers"/>
+<!--    <mvc:message-converters register-defaults="true">-->
+<!--        <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+<!--            <property name="objectMapper" ref="objectMapper" />-->
+<!--        </bean>-->
+<!--    </mvc:message-converters>-->
+
+<!--<bean id="objectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">-->
+<!--<property name="propertyNamingStrategy" value="SNAKE_CASE"/>-->
+
+<!--<property name="modulesToInstall"-->
+<!--          value="com.fasterxml.jackson.datatype.jsr310.JavaTimeModule" />-->
+<!--</bean>-->
+
+<!--<bean id="jsonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
+<!--<property name="supportedMediaTypes" value="application/json" />-->
+<!--<property name="objectMapper" ref="objectMapper" />-->
+<!--</bean>-->
+
+<!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">-->
+<!--<property name="messageConverters">-->
+<!--    <list>-->
+<!--        <ref bean="jsonHttpMessageConverter" />-->
+<!--    </list>-->
+<!--</property>-->
+<!--</bean>-->
+
+<!--    <context:component-scan base-package="org.it_academy.spring_currency.controllers"/>-->
 
 </beans>
