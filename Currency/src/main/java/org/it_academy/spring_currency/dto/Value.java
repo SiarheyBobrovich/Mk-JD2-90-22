@@ -1,6 +1,5 @@
 package org.it_academy.spring_currency.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 
@@ -47,7 +46,6 @@ public class Value {
         return createDate;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.NUMBER_INT)
     public LocalDateTime getUpdateDate() {
         return updateDate;
     }
