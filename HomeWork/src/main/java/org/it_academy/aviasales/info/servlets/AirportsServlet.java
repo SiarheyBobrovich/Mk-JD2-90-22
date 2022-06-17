@@ -14,7 +14,7 @@ import java.io.IOException;
 @WebServlet(name = "AirportsServlet", urlPatterns = "/airports")
 public class AirportsServlet extends HttpServlet {
 
-    private IAirportService<Airport> as = AirportsService.getInstance();
+    private static final IAirportService<Airport> as = AirportsService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

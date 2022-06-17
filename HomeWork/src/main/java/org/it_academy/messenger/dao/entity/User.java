@@ -1,4 +1,4 @@
-package org.it_academy.messenger.core.dto;
+package org.it_academy.messenger.dao.entity;
 
 import org.it_academy.messenger.core.dto.enums.Role;
 
@@ -18,14 +18,16 @@ public class User implements Serializable {
     private final LocalDateTime authorisationDate;
     private Role status;
 
-    public User(String login, String password, String firstName, String lastName, LocalDate birthday) {
+    public User(String login, String password,
+                String firstName, String lastName,
+                LocalDate birthday) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
-        this.status = Role.USER;
         this.authorisationDate = LocalDateTime.now();
+        this.status = Role.USER;
     }
 
     public String getLogin() {

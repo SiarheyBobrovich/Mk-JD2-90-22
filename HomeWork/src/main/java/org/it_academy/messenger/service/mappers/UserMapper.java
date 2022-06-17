@@ -1,14 +1,15 @@
-package org.it_academy.messenger.service;
+package org.it_academy.messenger.service.mappers;
 
-import org.it_academy.messenger.core.dto.User;
+import org.it_academy.messenger.dao.entity.User;
 import org.it_academy.messenger.core.dto.enums.Role;
-import org.it_academy.messenger.service.api.IUserFactory;
+import org.it_academy.messenger.core.dto.UserDto;
+import org.it_academy.messenger.service.mappers.api.IMapper;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class UserFactory implements IUserFactory<User> {
+public class UserMapper implements IMapper<User, UserDto> {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -16,19 +17,26 @@ public class UserFactory implements IUserFactory<User> {
     private String errorMessage = "Invalid:";
 
     @Override
-    public User createUser(String login, String password, String firstName, String lastName, String thirdName, String userBirthday) {
-        checkParameter(login, "login");
-        checkParameter(password, "password");
-        checkParameter(firstName, "firstName");
-        checkParameter(lastName, "lastName");
-        LocalDate birthday = getBirthday(userBirthday);
+    public User get(UserDto dto) {
+        checkParameter(dto.getLogin(), "login");
+        checkParameter(dto.getPassword(), "password");
+        checkParameter(dto.getFirstName(), "firstName");
+        checkParameter(dto.getLastName(), "lastName");
+        LocalDate birthday = getBirthday(dto.getBirthday());
 
         if (isInvalid) {
             throw new IllegalArgumentException(this.errorMessage);
         }
 
-        User user = new User(login, password, firstName, lastName, birthday);
+        User user = new User(
+                dto.getLogin().toLowerCase(),
+                dto.getPassword(),
+                dto.getFirstName(),
+                dto.getLastName(), birthday);
+
         user.setStatus(Role.USER);
+
+        String thirdName = dto.getThirdName();
 
         if (thirdName != null && thirdName.length() != 0) {
             user.setThirdName(thirdName);

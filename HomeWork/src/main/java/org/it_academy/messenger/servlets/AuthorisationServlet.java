@@ -1,6 +1,5 @@
 package org.it_academy.messenger.servlets;
 
-import org.it_academy.messenger.core.dto.User;
 import org.it_academy.messenger.service.UserStorage;
 import org.it_academy.messenger.service.api.IUserStorage;
 
@@ -17,7 +16,7 @@ import java.nio.charset.Charset;
 @WebServlet(name ="AuthorisationServlet", urlPatterns = "/api/login")
 public class AuthorisationServlet extends HttpServlet {
 
-    private final IUserStorage<User> storage;
+    private final IUserStorage storage;
     private static final String LOGIN_PARAM = "login";
     private static final String PASSWORD_PARAM = "password";
 

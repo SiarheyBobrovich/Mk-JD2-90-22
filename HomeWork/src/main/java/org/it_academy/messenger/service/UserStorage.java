@@ -1,39 +1,31 @@
 package org.it_academy.messenger.service;
 
-import org.it_academy.messenger.core.dto.Message;
-import org.it_academy.messenger.core.dto.User;
-import org.it_academy.messenger.service.api.IUserFactory;
-import org.it_academy.messenger.core.dto.enums.Role;
+import org.it_academy.messenger.core.dto.MessageDto;
+import org.it_academy.messenger.dao.entity.Message;
+import org.it_academy.messenger.dao.entity.User;
+import org.it_academy.messenger.core.dto.UserDto;
 import org.it_academy.messenger.service.api.IUserStorage;
+import org.it_academy.messenger.service.mappers.MessageMapper;
+import org.it_academy.messenger.service.mappers.UserMapper;
+import org.it_academy.messenger.service.mappers.api.IMapper;
+import org.it_academy.messenger.core.dto.enums.Role;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class UserStorage implements IUserStorage<User> {
+public class UserStorage implements IUserStorage {
 
-    private static final IUserStorage<User> storage = new UserStorage();
+    private static final UserStorage storage = new UserStorage();
     private final Map<String, User> userContainer;
     private final Map<User, List<Message>> messageMap;
 
     private UserStorage() {
-        this.userContainer = new HashMap<>();
-        this.messageMap = new HashMap<>();
+        this.userContainer = new ConcurrentHashMap<>();
+        this.messageMap = new ConcurrentHashMap<>();
 
         addAdmin();
-    }
-
-    private void addAdmin() {
-        save("admin", "admin",
-                "admin", "admin", "admin",
-                "1987-06-27"
-        );
-        this.userContainer.get("admin").setStatus(Role.ADMIN);
-    }
-
-    public static IUserStorage<User> getInstance() {
-        return storage;
     }
 
     @Override
@@ -43,6 +35,10 @@ public class UserStorage implements IUserStorage<User> {
 
     @Override
     public boolean check(String authenticator, String password) {
+        if (authenticator == null || authenticator.isEmpty()){
+            throw new IllegalArgumentException("Invalid login/password!");
+        }
+
         User user = userContainer.get(authenticator.toLowerCase());
 
         if (user == null || !user.getPassword().equals(password)) {
@@ -53,42 +49,67 @@ public class UserStorage implements IUserStorage<User> {
     }
 
     @Override
-    public void save(String login, String password, String firstName, String lastName, String thirdName, String birthday) {
-        login = login.toLowerCase();
+    public void save(UserDto uDto) {
+        IMapper<User, UserDto> factory = new UserMapper();
+        User user = factory.get(uDto);
 
-        if (userContainer.containsKey(login)){
+        if (userContainer.containsKey(user.getLogin())){
             throw new IllegalArgumentException("This login's already exist!");
         }
 
-        IUserFactory<User> factory = new UserFactory();
-        User user = factory.createUser(login, password, firstName, lastName, thirdName, birthday);
+        this.userContainer.put(user.getLogin(), user);
 
-        synchronized (userContainer) {
-            this.userContainer.put(user.getLogin(), user);
-        }
-
-        synchronized (this.messageMap) {
-            this.messageMap.put(user, new ArrayList<>());
-        }
+        this.messageMap.put(user, new ArrayList<>());
     }
 
     @Override
-    public synchronized void addMessage(String loginFrom, String loginTo, String text) {
-        loginFrom = loginFrom.toLowerCase();
+    public void addMessage(MessageDto messageDto, String loginTo) {
+
+        if (loginTo == null || loginTo.isEmpty()) {
+            throw new IllegalArgumentException("Please enter the user's login");
+        }
+
         loginTo = loginTo.toLowerCase();
+        User fromUser = messageDto.getFrom();
+        User toUser = this.userContainer.get(loginTo);
 
-        User userFrom = this.userContainer.get(loginFrom);
-        User userTo = this.userContainer.get(loginTo);
-        this.messageMap.get(userTo)
-                .add(new Message(userFrom, userTo, text))
-        ;
+        Message message = new MessageMapper().get(messageDto);
+
+        if (fromUser == null) {
+            throw new IllegalStateException("Please sing in!");
+
+        }else if (toUser == null) {
+            throw new IllegalArgumentException("User doesn't exist!");
+
+        } else if (messageDto.getText() == null || messageDto.getText().length() == 0) {
+            throw new IllegalArgumentException("Enter the message!");
+        }
+
+        this.messageMap.get(toUser).add(message);
+        StatisticStorage.getInstance().incrementCountMessages();
     }
 
     @Override
-    public List<Message> getMessages(String login) {
-        login = login.toLowerCase();
+    public List<Message> getMessages(User user) {
 
-        User user = this.userContainer.get(login);
         return this.messageMap.get(user);
+    }
+
+    private void addAdmin() {
+        UserDto build = UserDto.create()
+                .setLogin("admin")
+                .setPassword("admin")
+                .setFirstName("Siarhey")
+                .setLastName("Unknown")
+                .setBirthday("1987-06-27")
+                .build();
+
+        save(build);
+
+        this.userContainer.get("admin").setStatus(Role.ADMIN);
+    }
+
+    public static UserStorage getInstance() {
+        return storage;
     }
 }

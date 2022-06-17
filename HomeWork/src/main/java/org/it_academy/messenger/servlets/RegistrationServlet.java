@@ -1,5 +1,6 @@
 package org.it_academy.messenger.servlets;
 
+import org.it_academy.messenger.core.dto.UserDto;
 import org.it_academy.messenger.service.UserStorage;
 
 import javax.servlet.ServletException;
@@ -24,15 +25,18 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
-        String login = req.getParameter(LOGIN);
-        String pass = req.getParameter(PASSWORD);
-        String firstName = req.getParameter(FIRST_NAME);
-        String lastName = req.getParameter(LAST_NAME);
-        String thirdName = req.getParameter(THIRD_NAME);
-        String birthday = req.getParameter(BIRTHDAY);
+
+        UserDto user = UserDto.create()
+                .setLogin(req.getParameter(LOGIN))
+                .setPassword(req.getParameter(PASSWORD))
+                .setFirstName(req.getParameter(FIRST_NAME))
+                .setLastName(req.getParameter(LAST_NAME))
+                .setThirdName(req.getParameter(THIRD_NAME))
+                .setBirthday(req.getParameter(BIRTHDAY))
+                .build();
 
         try {
-            UserStorage.getInstance().save(login, pass, firstName, lastName, thirdName, birthday);
+            UserStorage.getInstance().save(user);
 
         }catch (IllegalArgumentException e) {
             resp.sendRedirect(req.getContextPath() + "/ui/signUp.jsp?error="+ URLEncoder.encode(e.getMessage(), Charset.defaultCharset()));

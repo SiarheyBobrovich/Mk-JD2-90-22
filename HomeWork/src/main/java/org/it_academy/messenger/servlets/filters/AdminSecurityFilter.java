@@ -1,6 +1,6 @@
 package org.it_academy.messenger.servlets.filters;
 
-import org.it_academy.messenger.core.dto.User;
+import org.it_academy.messenger.dao.entity.User;
 import org.it_academy.messenger.core.dto.enums.Role;
 
 import javax.servlet.*;
