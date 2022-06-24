@@ -1,11 +1,7 @@
 package org.it_academy.currency.dao;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Persistence;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.resource.transaction.backend.jta.internal.DdlTransactionIsolatorJtaImpl;
-import org.junit.jupiter.api.Test;
+import javax.persistence.EntityManager;
+import javax.persistence.Persistence;
 
 import java.io.IOException;
 import java.nio.file.Files;

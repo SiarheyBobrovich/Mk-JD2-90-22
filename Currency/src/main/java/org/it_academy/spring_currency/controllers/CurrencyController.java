@@ -4,6 +4,8 @@ import org.it_academy.spring_currency.api.CRUD.ICRUDService;
 import org.it_academy.spring_currency.dto.CurrencyDto;
 import org.it_academy.spring_currency.dto.Value;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +16,7 @@ public class CurrencyController {
 
     private ICRUDService service;
 
-    @Autowired
-    public void setService(ICRUDService service) {
+    public CurrencyController(@Autowired ICRUDService service) {
         this.service = service;
     }
 
@@ -31,8 +32,16 @@ public class CurrencyController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
 //    @RequestMapping(method = RequestMethod.POST)
     public long create(@RequestBody CurrencyDto dto) {
         return service.save(dto);
     }
+
+    @PutMapping("/update/{id}")
+//    @RequestMapping(method = RequestMethod.POST)
+    public void update(@RequestBody Value dto, @PathVariable Long id) {
+        service.update(dto, id);
+    }
+
 }

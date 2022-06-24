@@ -1,13 +1,10 @@
 package org.it_academy.spring_currency.config;
 
-import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean;
@@ -24,37 +21,40 @@ import static com.fasterxml.jackson.databind.PropertyNamingStrategies.SNAKE_CASE
 
 @Configuration
 @EnableWebMvc
-
 @Import(value = ServiceConfig.class)
-@ComponentScan("org.it_academy.spring_currency.controllers")
+@ComponentScan(basePackages = "org.it_academy.spring_currency.controllers")
 public class ControllerConfig implements WebMvcConfigurer {
-
-    @Autowired
-    private Jackson2ObjectMapperFactoryBean objectMapper;
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setObjectMapper(objectMapper.getObject());
+        converter.setObjectMapper(mapper);
         converters.add(converter);
     }
 
     @Bean("objectMapper")
     public Jackson2ObjectMapperFactoryBean mapperFactoryBean() {
-        Jackson2ObjectMapperFactoryBean jackson2ObjectMapperFactoryBean = new Jackson2ObjectMapperFactoryBean();
-        Map<Class<?>, JsonSerializer<?>> serializerMap = Map.of(LocalDateTime.class, new JsonToEpochDate());
+        Jackson2ObjectMapperFactoryBean factoryBean = new Jackson2ObjectMapperFactoryBean();
 
-        jackson2ObjectMapperFactoryBean.setPropertyNamingStrategy(SNAKE_CASE);
-        jackson2ObjectMapperFactoryBean.setModulesToInstall(JavaTimeModule.class);
-        jackson2ObjectMapperFactoryBean.setSerializersByType(serializerMap);
-        return jackson2ObjectMapperFactoryBean;
+        factoryBean.setObjectMapper(new ObjectMapper());
+        factoryBean.setPropertyNamingStrategy(SNAKE_CASE);
+        factoryBean.setModulesToInstall(JavaTimeModule.class);
+        factoryBean.setSerializersByType(Map.of(
+                LocalDateTime.class, new JsonToEpochDate())
+        );
+
+        return factoryBean;
     }
 
+    @Autowired
+    private ObjectMapper mapper;
+
+
     @Bean("jsonHttpMessageConverter")
-    public MappingJackson2HttpMessageConverter converter(@Qualifier("objectMapper") Jackson2ObjectMapperFactoryBean mapper) {
+    public MappingJackson2HttpMessageConverter converter(@Qualifier("objectMapper") Jackson2ObjectMapperFactoryBean objectMapper) {
         MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
         mappingJackson2HttpMessageConverter.setSupportedMediaTypes(List.of(MediaType.APPLICATION_JSON));
-        mappingJackson2HttpMessageConverter.setObjectMapper(mapper.getObject());
+        mappingJackson2HttpMessageConverter.setObjectMapper(objectMapper.getObject());
 
         return mappingJackson2HttpMessageConverter;
     }
@@ -66,5 +66,4 @@ public class ControllerConfig implements WebMvcConfigurer {
 
         return requestMappingHandlerAdapter;
     }
-
 }

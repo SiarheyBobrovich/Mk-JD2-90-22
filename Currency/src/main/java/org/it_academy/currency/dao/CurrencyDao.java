@@ -1,10 +1,10 @@
 package org.it_academy.currency.dao;
 
-import jakarta.persistence.EntityManager;
 import org.it_academy.currency.api.CRUD.ICRUDHibernate;
 import org.it_academy.currency.dao.entity.Currency;
 import org.it_academy.currency.exceptions.CurrencyServiceException;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 public class CurrencyDao implements ICRUDHibernate {

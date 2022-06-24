@@ -1,6 +1,5 @@
 package org.it_academy.currency.services;
 
-import jakarta.persistence.PersistenceException;
 import org.it_academy.currency.api.CRUD.ICRUDHibernate;
 import org.it_academy.currency.api.CRUD.ICRUDService;
 import org.it_academy.currency.dao.CurrencyDao;
@@ -11,6 +10,7 @@ import org.it_academy.currency.dto.Value;
 import org.it_academy.currency.exceptions.CurrencyServiceException;
 import org.it_academy.currency.mappers.CurrencyMapper;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 

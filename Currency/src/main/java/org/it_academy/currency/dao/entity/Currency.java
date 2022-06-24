@@ -2,7 +2,7 @@ package org.it_academy.currency.dao.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

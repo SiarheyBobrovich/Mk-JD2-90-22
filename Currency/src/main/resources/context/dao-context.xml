@@ -1,12 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd
-        ">
+       http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/data/jpa
+        https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 <!--    <context:component-scan base-package="org.it_academy.spring_currency.dao"/>-->
 
@@ -27,4 +34,37 @@
 <!--       </constructor-arg>-->
 <!--    </bean>-->
 
+<!--    <jpa:repositories base-package="dao.api"/>-->
+
+<!--    <bean id="entityManagerFactory"-->
+<!--          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">-->
+<!--        <property name="dataSource" ref="dataSource" />-->
+<!--        <property name="packagesToScan" value="dao.entity" />-->
+<!--        <property name="jpaVendorAdapter">-->
+<!--            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />-->
+<!--        </property>-->
+<!--        <property name="jpaProperties">-->
+<!--            <props>-->
+<!--                <prop key="hibernate.hbm2ddl.auto">none</prop>-->
+<!--                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL10Dialect</prop>-->
+<!--            </props>-->
+<!--        </property>-->
+<!--    </bean>-->
+
+<!--    <bean id="dataSource"-->
+<!--          class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+<!--        <property name="driverClassName" value="org.postgresql.Driver" />-->
+<!--        <property name="url" value="jdbc:postgresql://localhost:5432/test?currentSchema=spring" />-->
+<!--        <property name="username" value="postgres" />-->
+<!--        <property name="password" value="postgres" />-->
+<!--    </bean>-->
+
+<!--    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
+<!--        <property name="entityManagerFactory" ref="entityManagerFactory" />-->
+<!--    </bean>-->
+
+<!--    <tx:annotation-driven />-->
+
+<!--    <bean id="persistenceExceptionTranslationPostProcessor" class=-->
+<!--            "org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />-->
 </beans>

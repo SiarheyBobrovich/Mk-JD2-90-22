@@ -1,13 +1,12 @@
 package org.it_academy.currency.dao.entity;
 
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Currencies")
+@Table(name = "Currencies", schema = "hibernate")
 public class SpringCurrency {
 
     @Id
@@ -24,7 +23,6 @@ public class SpringCurrency {
     @Column(name = "dt_create", updatable = false)
     private LocalDateTime createDate;
 
-    @Version
     @Column(name = "dt_update")
     private LocalDateTime updateDate;
 
